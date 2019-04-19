@@ -1,5 +1,4 @@
 "use strict";
-console.log("Testing git (windows) push and commit with this line as a change.");
 /*START VARIABLES GLOBALES DEV */
 const manager = new THREE.LoadingManager();
 manager.onStart = () => {};

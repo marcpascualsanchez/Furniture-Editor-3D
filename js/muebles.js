@@ -200,27 +200,25 @@ var MUEBLE = {
     var columnsPositionX = this.calculateColumns(width, maxWidthColumn);
     var shelvesPositionY = this.calculateShelves(height, maxHeight);
 
+    var shelvesSpecs = {
+    	width: width,
+    	height: height,
+        depth: depth,
+        thick: thick,
+        color: objectColor,
+        texture: objectTexture,
+        position: {
+        	x: columnsPositionX,
+        	y: shelvesPositionY
+        }
+    };
+
     closetCustom.add(
-      this.generateShelves(
-        width,
-        depth,
-        thick,
-        objectColor,
-        objectTexture,
-        shelvesPositionY
-      )
+      this.generateShelves(shelvesSpecs)
     ); //anadir cajones + suelo y techo incluido
 
     closetCustom.add(
-      this.generateShelvesWall(
-        height,
-        depth,
-        thick,
-        objectColor,
-        objectTexture,
-        columnsPositionX,
-        shelvesPositionY
-      )
+      this.generateShelvesWall(shelvesSpecs)
     ); //anadir separadores + paredes laterales incluidas
 
     if (coverType === "Doors" && width >= minWidthDoubleDoors) {
@@ -378,73 +376,59 @@ var MUEBLE = {
     return halfBackWall;
   },
 
-  generateShelves(
-    width,
-    depth,
-    thick,
-    objectColor,
-    objectTexture,
-    shelvesPositionY
-  ) {
-    var shelfWidth = width + thick;
+  generateShelves(specs) {
+    var shelfWidth = specs.width + specs.thick;
     var shelves = [];
     var shelfGroup = new THREE.Group();
     shelfGroup.name = "horizontal shelf group";
-    geometry = new THREE.BoxGeometry(shelfWidth, thick, depth + thick / 2);
+    geometry = new THREE.BoxGeometry(shelfWidth, specs.thick, specs.depth + specs.thick / 2);
 
     materialShelf = this.customMaterial(
-      objectTexture,
-      objectTexture,
-      objectColor,
-      objectColor,
-      objectTexture,
-      objectTexture
+      specs.texture,
+      specs.texture,
+      specs.color,
+      specs.color,
+      specs.texture,
+      specs.texture
     ); //material y colores de estanterias
 
-    for (var e = 0; e < shelvesPositionY.length + 1; e++) {
+    for (var e = 0; e < specs.position.y.length + 1; e++) {
       //le sumamos uno por el techo
       shelves[e] = new THREE.Mesh(geometry, materialShelf);
       shelves[e].name = "individual horizontal shelf " + e;
       shelves[e].castShadow = true;
-      shelves[e].position.y = shelvesPositionY[e];
+      shelves[e].position.y = specs.position.y[e];
       shelfGroup.add(shelves[e]);
     }
 
     return shelfGroup;
   },
 
-  generateShelvesWall(
-    height,
-    depth,
-    thick,
-    objectColor,
-    objectTexture,
-    columnsPositionX,
-    shelvesPositionY
-  ) {
+  generateShelvesWall(specs) {
     var shelfWalls = [];
     var shelfWallGroup = new THREE.Group();
     shelfWallGroup.name = "vertical shelf wall group";
-    var shelfWallHeight = height - thick;
-    geometry = new THREE.BoxGeometry(thick, shelfWallHeight, depth);
+    var shelfWallHeight = specs.height - specs.thick;
+    console.log(specs.thick);
+    geometry = new THREE.BoxGeometry(specs.thick, shelfWallHeight, specs.depth);
 
     var materialShelfWall = this.customMaterial(
-      objectColor,
-      objectColor,
-      objectTexture,
-      objectTexture,
-      objectTexture,
-      objectTexture
+      specs.color,
+      specs.color,
+      specs.texture,
+      specs.texture,
+      specs.texture,
+      specs.texture
     ); //material separadores de Cajones
 
-    for (var i = 0; i < columnsPositionX.length; i++) {
-      for (var e = 0; e < shelvesPositionY.length - 1; e++) {
+    for (var i = 0; i < specs.position.x.length; i++) {
+      for (var e = 0; e < specs.position.y.length - 1; e++) {
         shelfWalls[e] = new THREE.Mesh(geometry, materialShelfWall);
         shelfWalls[e].castShadow = true;
         shelfWalls[e].name = "individual vertical wall " + i + "_" + e;
-        shelfWalls[e].position.x = columnsPositionX[i];
+        shelfWalls[e].position.x = specs.position.x[i];
         shelfWalls[e].position.y =
-          shelvesPositionY[e] + (shelfWallHeight + thick) / 2;
+          specs.position.y[e] + (shelfWallHeight + specs.thick) / 2;
         shelfWallGroup.add(shelfWalls[e]);
       }
     }
