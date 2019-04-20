@@ -38,72 +38,131 @@ var MUEBLE = {
 
   set: function() {
     this.settings.mueble_old = this.variables;
-    this.settings.mueble = this.createCloset(
-      this.variables.width, //ancho
-      this.variables.height, //altura
-      //this.variables.depth, //profundidad
-      this.variables.thick, //grosor de las tablas
-      this.variables.marginWall, //distancia margen entre pared y mueble
-      this.variables.color, //color de caras
-      this.variables.objectTexture, //path a la textura
-      this.variables.structureOrganization, //estructura de cada division
-      this.variables.rowHeights,
-      this.variables.colWidths,
-      this.variables.rowDepths,
-      this.variables.legsLength
-    );
+    this.settings.mueble = this.createCloset(this.variables);
   },
 
-  createCloset( //genera todas las divisiones que forman el armario
-    width, //anchura del mueble      - X
-    height, //altura del mueble       - Y
-    //depth, //profundidad del mueble  - Z
-    thick, //grosor de las piezas del mueble
-    marginWall,
-    closetColor,
-    objectTexture,
-    structureOrganization,
-    rowHeights,
-    colWidths,
-    rowDepths,
-    legsLength
-  ) {
+  createCloset(variables) {
     var closet = new THREE.Group();
     closet.name = "initial closet group";
     var silouettes = new THREE.Group();
     silouettes.name = "silouettes group";
-    var closetDivision = [];
-    var closetDivisionSilouette = [];
-    var corner = "None";
-    var numberColumns = this.calculateNumGridAxe(width, colWidths, "width");
-    var totalWidth = this.calculateLengthGridAxe(
-      numberColumns,
-      colWidths,
-      thick
-    );
-    var numberRows = this.calculateNumGridAxe(
-      height + legsLength,
-      rowHeights,
+    var computedVariables = {
+    	numberColumns: null,
+    	numberRows: null,
+    	totalWidth: null,
+    	totalHeight: null,
+    	totalPrice: null,
+    	rowsPositionY: null,
+    	colsPositionX: null,
+    	baseDepth: null
+    };
+    
+    computedVariables.numberColumns = this.calculateNumGridAxe(variables.width, variables.colWidths, "width");
+    computedVariables.numberRows = this.calculateNumGridAxe(
+      variables.height + variables.legsLength,
+      variables.rowHeights,
       "height"
     );
-    var totalHeight = this.calculateLengthGridAxe(
-      numberRows,
-      rowHeights,
-      thick
+    computedVariables.totalWidth = this.calculateLengthGridAxe(
+      computedVariables.numberColumns,
+      variables.colWidths,
+      variables.thick
     );
-    var totalPrice = this.calculatePrice(
-      structureOrganization,
-      numberColumns,
-      numberRows
+    computedVariables.totalHeight = this.calculateLengthGridAxe(
+      computedVariables.numberRows,
+      variables.rowHeights,
+      variables.thick
     );
-    var rowsPositionY = this.calculateCoordinates(height, rowHeights);
-    var colsPositionX = this.calculateCoordinates(width, colWidths);
-    var baseDepth = this.getHigherValue(rowDepths);
+    computedVariables.totalPrice = this.calculatePrice(
+      variables.structureOrganization,
+      computedVariables.numberColumns,
+      computedVariables.numberRows
+    );
+    computedVariables.rowsPositionY = this.calculateCoordinates(variables.height, variables.rowHeights);
+    computedVariables.colsPositionX = this.calculateCoordinates(variables.width, variables.colWidths);
+    computedVariables.baseDepth = this.getHigherValue(variables.rowDepths);
 
-    for (var z = 0; z < numberRows; z++) {
-      for (var i = 0; i < numberColumns; i++) {
-        //define si hace esquina la division actual
-        if (i == 0 && i == numberColumns - 1) {
+    this.generateShelvesAndSilouettes(variables, computedVariables, closet, silouettes);
+    closet.add(
+      this.generateLegs(
+        variables.height,
+        variables.baseDepth,
+        variables.thick,
+        variables.legsLength,
+        computedVariables.colsPositionX,
+        computedVariables.numberColumns,
+        variables.colWidths
+      )
+    );
+
+    closet.position.y = (variables.height + variables.thick) / 2 + variables.legsLength - 0.5; //posicionamos el mueble sobre el suelo
+    closet.position.z = (computedVariables.baseDepth + variables.thick) / 2 + variables.marginWall; //posicionamos el mueble delante de la pared
+
+    //Info importante sobre el mueble
+    closet.totalWidth = computedVariables.totalWidth; //xa saber ancho total
+    closet.totalHeight = computedVariables.totalHeight + variables.legsLength; //xa saber altura total
+    closet.baseDepth = computedVariables.baseDepth;
+    closet.topDepth = variables.rowDepths[variables.rowDepths.length - 1];
+    closet.numRows = computedVariables.numberRows;
+    closet.numColumns = computedVariables.numberColumns;
+    closet.totalPrice = computedVariables.totalPrice;
+
+    return closet;
+  },
+
+  generateShelvesAndSilouettes(initialVariables, computedVariables, closet, silouettes){    
+		var closetDivision = [];
+    	var closetDivisionSilouette = [];
+
+	    for (var z = 0; z < computedVariables.numberRows; z++) {
+	      for (var i = 0; i < computedVariables.numberColumns; i++) {
+	        //define si hace esquina la division actual
+	        computedVariables.corner = this.defineCorner(i, computedVariables.numberColumns);
+	        //crea division
+	        closetDivision[i] = this.createClosetDivision(
+	          initialVariables.colWidths[i],
+	          initialVariables.rowHeights[z],
+	          initialVariables.rowDepths[z],
+	          initialVariables.thick,
+	          initialVariables.marginWall,
+	          initialVariables.color,
+	          initialVariables.objectTexture,
+	          initialVariables.structureOrganization[z][i].coverType,
+	          initialVariables.rowHeights[z],
+	          computedVariables.corner
+	        );
+	        //posiciona division relativa al mueble
+
+	        closetDivision[i].position.x = computedVariables.colsPositionX[i];
+	        closetDivision[i].position.y = computedVariables.rowsPositionY[z];
+	        closetDivision[i].position.z = -computedVariables.baseDepth / 2 + initialVariables.rowDepths[z] / 2;
+	        closet.add(closetDivision[i]);
+
+	        //silouette division
+	        closetDivisionSilouette[i] = this.createSilouetteCubes(
+	          initialVariables.rowDepths[z],
+	          initialVariables.thick,
+	          initialVariables.colWidths[i],
+	          initialVariables.rowHeights[z],
+	          initialVariables.structureOrganization[z][i].coverType
+	        );
+
+	        closetDivisionSilouette[i].closetIndex.push(z, i);
+
+	        closetDivisionSilouette[i].position.x = computedVariables.colsPositionX[i];
+	        closetDivisionSilouette[i].position.y = computedVariables.rowsPositionY[z];
+	        closetDivisionSilouette[i].position.z =
+	          -computedVariables.baseDepth / 2 + initialVariables.rowDepths[z] / 2;
+	        silouettes.add(closetDivisionSilouette[i]);
+	      }
+	    }
+	    closet.add(silouettes);
+  },
+
+  defineCorner(i, numberColumns){
+  	var corner = "None";
+
+  	if (i == 0 && i == numberColumns - 1) {
           corner = "Both";
         } else if (i == 0) {
           corner = "Left";
@@ -112,71 +171,8 @@ var MUEBLE = {
         } else {
           corner = "None";
         }
-        //crea division
-        closetDivision[i] = this.createClosetDivision(
-          colWidths[i],
-          rowHeights[z],
-          rowDepths[z],
-          thick,
-          marginWall,
-          closetColor,
-          objectTexture,
-          structureOrganization[z][i].coverType,
-          rowHeights[z],
-          corner
-        );
-        //posiciona division relativa al mueble
 
-        closetDivision[i].position.x = colsPositionX[i];
-        closetDivision[i].position.y = rowsPositionY[z];
-        closetDivision[i].position.z = -baseDepth / 2 + rowDepths[z] / 2;
-        closet.add(closetDivision[i]);
-
-        //silouette division
-        closetDivisionSilouette[i] = this.createSilouetteCubes(
-          rowDepths[z],
-          thick,
-          colWidths[i],
-          rowHeights[z],
-          structureOrganization[z][i].coverType
-        );
-
-        closetDivisionSilouette[i].closetIndex.push(z, i);
-
-        closetDivisionSilouette[i].position.x = colsPositionX[i];
-        closetDivisionSilouette[i].position.y = rowsPositionY[z];
-        closetDivisionSilouette[i].position.z =
-          -baseDepth / 2 + rowDepths[z] / 2;
-        silouettes.add(closetDivisionSilouette[i]);
-      }
-    }
-    closet.add(silouettes);
-
-    closet.add(
-      this.generateLegs(
-        height,
-        baseDepth,
-        thick,
-        legsLength,
-        colsPositionX,
-        numberColumns,
-        colWidths
-      )
-    );
-
-    closet.position.y = (height + thick) / 2 + legsLength - 0.5; //posicionamos el mueble sobre el suelo
-    closet.position.z = (baseDepth + thick) / 2 + marginWall; //posicionamos el mueble delante de la pared
-
-    //Info importante sobre el mueble
-    closet.totalWidth = totalWidth; //xa saber ancho total
-    closet.totalHeight = totalHeight + legsLength; //xa saber altura total
-    closet.baseDepth = baseDepth;
-    closet.topDepth = rowDepths[rowDepths.length - 1];
-    closet.numRows = numberRows;
-    closet.numColumns = numberColumns;
-    closet.totalPrice = totalPrice;
-
-    return closet;
+    return corner;
   },
 
   createClosetDivision( //genera una division del armario
@@ -409,8 +405,7 @@ var MUEBLE = {
     var shelfWallGroup = new THREE.Group();
     shelfWallGroup.name = "vertical shelf wall group";
     var shelfWallHeight = specs.height - specs.thick;
-    console.log(specs.thick);
-    geometry = new THREE.BoxGeometry(specs.thick, shelfWallHeight, specs.depth);
+	    geometry = new THREE.BoxGeometry(specs.thick, shelfWallHeight, specs.depth);
 
     var materialShelfWall = this.customMaterial(
       specs.color,
