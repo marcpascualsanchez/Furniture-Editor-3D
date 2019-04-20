@@ -4,6 +4,24 @@ var MUEBLE = {
       mueble: null
     };
 
+    this.constants = {
+    	maxWidthColumn: 0.9, //maxima distancia sense crear una nova columna
+    	minWidthDoubleDoors: 0.45, //maxima distancia sense partir les portes en dos
+    	prices: {
+    		doorPrice: 45,
+    		drawerPrice: 60,
+    		columnPrice: 35
+    	},
+    	silouette:{
+    		silouetteColor: 0x5f8da6,
+    		silouetteOpacity: 0.3
+    	},
+    	drawer:{
+    		marginDrawerBetween: 0.01,
+    		marginDrawerHeight: 0.05
+    	}
+    }
+
     this.variables = {
       create: true,
       width: variables.width,
@@ -191,9 +209,8 @@ var MUEBLE = {
     var closetCustom = new THREE.Group(); //creamos GRUPOS como closet de OBJETOS
     closetCustom.name = "closetCustom " + coverType;
     closetCustom.corner = corner;
-    var maxWidthColumn = 0.9; //maxima distancia sense crear una nova columna
-    var minWidthDoubleDoors = 0.45; //maxima distancia sense partir les portes en dos
-    var columnsPositionX = this.calculateColumns(width, maxWidthColumn);
+    
+    var columnsPositionX = this.calculateColumns(width, this.constants.maxWidthColumn);
     var shelvesPositionY = this.calculateShelves(height, maxHeight);
 
     var shelvesSpecs = {
@@ -217,7 +234,7 @@ var MUEBLE = {
       this.generateShelvesWall(shelvesSpecs)
     ); //anadir separadores + paredes laterales incluidas
 
-    if (coverType === "Doors" && width >= minWidthDoubleDoors) {
+    if (coverType === "Doors" && width >= this.constants.minWidthDoubleDoors) {
       coverType = "DoubleDoors";
     }
 
@@ -580,11 +597,11 @@ var MUEBLE = {
 
     for (var i = 0; i < numRows; i++) {
       for (var e = 0; e < numColumns; e++) {
-        finalPrice += 35;
+        finalPrice += this.constants.prices.columnPrice;
         if (coverTypes[i][e].coverType === "Doors") {
-          finalPrice += 35;
+          finalPrice += this.constants.prices.doorPrice;
         } else if (coverTypes[i][e].coverType === "Drawers") {
-          finalPrice += 50;
+          finalPrice += this.constants.prices.drawerPrice;
         }
       }
     }
@@ -783,8 +800,6 @@ var MUEBLE = {
     var drawers = [];
     var drawersGroup = new THREE.Group();
     drawersGroup.name = "drawers group";
-    var marginDrawerBetween = 0.01;
-    var marginDrawerHeight = 0.05;
 
     for (var i = 0; i < shelvesPositionY.length - 1; i++) {
       for (var e = 1; e < columnsPositionX.length; e++) {
@@ -797,8 +812,8 @@ var MUEBLE = {
           shelvesPositionY,
           drawerWidth,
           drawerHeight,
-          marginDrawerBetween,
-          marginDrawerHeight
+          this.constants.drawer.marginDrawerBetween,
+          this.constants.drawer.marginDrawerHeight
         );
         drawers[e].name = "drawer n" + i + "_" + e;
         drawers[e].position.x =
@@ -973,9 +988,9 @@ var MUEBLE = {
     var material = [];
 
     material = new THREE.MeshLambertMaterial({
-      color: 0x5f8da6,
+      color: this.constants.silouette.silouetteColor,
       transparent: true,
-      opacity: 0.3,
+      opacity: this.constants.silouette.silouetteOpacity,
       visible: false
     });
     silouette = new THREE.Mesh(geometry, material);
