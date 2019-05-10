@@ -39,7 +39,13 @@ var MUEBLE = {
       minRowHeight: variables.minRowHeight,
       maxRowHeight: variables.maxRowHeight,
       minColWidth: variables.minColWidth,
-      maxColWidth: variables.maxColWidth
+      maxColWidth: variables.maxColWidth,
+      structureJSON: {
+        rowHeights: variables.rowHeights,
+        colWidths: variables.colWidths,
+        rowDepths: variables.rowDepths,
+        coverTypes: variables.structureOrganization
+      }
     };
     $.extend(this.variables, variables);
 
@@ -145,7 +151,7 @@ var MUEBLE = {
 	          initialVariables.marginWall,
 	          initialVariables.color,
 	          initialVariables.objectTexture,
-	          initialVariables.structureOrganization[z][i].coverType,
+	          initialVariables.structureOrganization[z][i],
 	          initialVariables.rowHeights[z],
 	          computedVariables.corner
 	        );
@@ -162,7 +168,7 @@ var MUEBLE = {
 	          initialVariables.thick,
 	          initialVariables.colWidths[i],
 	          initialVariables.rowHeights[z],
-	          initialVariables.structureOrganization[z][i].coverType
+	          initialVariables.structureOrganization[z][i]
 	        );
 
 	        closetDivisionSilouette[i].closetIndex.push(z, i);
@@ -1022,5 +1028,9 @@ var MUEBLE = {
       this.variables.position_y,
       this.variables.position_z
     );
+  },
+
+  getFullStructureJSON(){
+    return this.variables.structureJSON;
   }
 };

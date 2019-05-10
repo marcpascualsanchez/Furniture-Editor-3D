@@ -11,203 +11,24 @@ manager.onLoad = function() {
   APP.onResize();
 };
 //initial structure organization of the closet
-var inpStructureOrganization = [
-  [
-    { coverType: "Drawers" },
-    { coverType: "None" },
-    { coverType: "Drawers" },
-    { coverType: "None" },
-    { coverType: "Drawers" },
-    { coverType: "None" },
-    { coverType: "Drawers" },
-    { coverType: "None" },
-    { coverType: "Drawers" },
-    { coverType: "None" },
-    { coverType: "Drawers" }
-  ],
-  [
-    { coverType: "None" },
-    { coverType: "Drawers" },
-    { coverType: "None" },
-    { coverType: "Drawers" },
-    { coverType: "None" },
-    { coverType: "Drawers" },
-    { coverType: "None" },
-    { coverType: "Drawers" },
-    { coverType: "None" },
-    { coverType: "Drawers" },
-    { coverType: "None" }
-  ],
-  [
-    { coverType: "Doors" },
-    { coverType: "None" },
-    { coverType: "Doors" },
-    { coverType: "None" },
-    { coverType: "Doors" },
-    { coverType: "None" },
-    { coverType: "Doors" },
-    { coverType: "None" },
-    { coverType: "Doors" },
-    { coverType: "None" },
-    { coverType: "Doors" }
-  ],
-  [
-    { coverType: "Drawers" },
-    { coverType: "None" },
-    { coverType: "Drawers" },
-    { coverType: "None" },
-    { coverType: "Drawers" },
-    { coverType: "None" },
-    { coverType: "Drawers" },
-    { coverType: "None" },
-    { coverType: "Drawers" },
-    { coverType: "None" },
-    { coverType: "Drawers" }
-  ],
-  [
-    { coverType: "None" },
-    { coverType: "Doors" },
-    { coverType: "None" },
-    { coverType: "Doors" },
-    { coverType: "None" },
-    { coverType: "Doors" },
-    { coverType: "None" },
-    { coverType: "Doors" },
-    { coverType: "None" },
-    { coverType: "Doors" },
-    { coverType: "None" }
-  ],
-  [
-    { coverType: "Doors" },
-    { coverType: "None" },
-    { coverType: "Doors" },
-    { coverType: "None" },
-    { coverType: "Doors" },
-    { coverType: "None" },
-    { coverType: "Doors" },
-    { coverType: "None" },
-    { coverType: "Doors" },
-    { coverType: "None" },
-    { coverType: "Doors" }
-  ],
-  [
-    { coverType: "Drawers" },
-    { coverType: "None" },
-    { coverType: "Drawers" },
-    { coverType: "None" },
-    { coverType: "Drawers" },
-    { coverType: "None" },
-    { coverType: "Drawers" },
-    { coverType: "None" },
-    { coverType: "Drawers" },
-    { coverType: "None" },
-    { coverType: "Drawers" }
-  ],
-  [
-    { coverType: "None" },
-    { coverType: "Doors" },
-    { coverType: "None" },
-    { coverType: "Doors" },
-    { coverType: "None" },
-    { coverType: "Doors" },
-    { coverType: "None" },
-    { coverType: "Doors" },
-    { coverType: "None" },
-    { coverType: "Doors" },
-    { coverType: "None" }
-  ],
-  [
-    { coverType: "Doors" },
-    { coverType: "None" },
-    { coverType: "Doors" },
-    { coverType: "None" },
-    { coverType: "Doors" },
-    { coverType: "None" },
-    { coverType: "Doors" },
-    { coverType: "None" },
-    { coverType: "Doors" },
-    { coverType: "None" },
-    { coverType: "Doors" }
-  ],
-  [
-    { coverType: "Drawers" },
-    { coverType: "None" },
-    { coverType: "Drawers" },
-    { coverType: "None" },
-    { coverType: "Drawers" },
-    { coverType: "None" },
-    { coverType: "Drawers" },
-    { coverType: "None" },
-    { coverType: "Drawers" },
-    { coverType: "None" },
-    { coverType: "Drawers" }
-  ],
-  [
-    { coverType: "None" },
-    { coverType: "Doors" },
-    { coverType: "None" },
-    { coverType: "Doors" },
-    { coverType: "None" },
-    { coverType: "Doors" },
-    { coverType: "None" },
-    { coverType: "Doors" },
-    { coverType: "None" },
-    { coverType: "Doors" },
-    { coverType: "None" }
-  ],
-  [
-    { coverType: "Doors" },
-    { coverType: "None" },
-    { coverType: "Doors" },
-    { coverType: "None" },
-    { coverType: "Doors" },
-    { coverType: "None" },
-    { coverType: "Doors" },
-    { coverType: "None" },
-    { coverType: "Doors" },
-    { coverType: "None" },
-    { coverType: "Doors" }
-  ],
-  [
-    { coverType: "Doors" },
-    { coverType: "None" },
-    { coverType: "Doors" },
-    { coverType: "None" },
-    { coverType: "Doors" },
-    { coverType: "None" },
-    { coverType: "Doors" },
-    { coverType: "None" },
-    { coverType: "Doors" },
-    { coverType: "None" },
-    { coverType: "Doors" }
-  ],
-  [
-    { coverType: "Doors" },
-    { coverType: "None" },
-    { coverType: "Doors" },
-    { coverType: "None" },
-    { coverType: "Doors" },
-    { coverType: "None" },
-    { coverType: "Doors" },
-    { coverType: "None" },
-    { coverType: "Doors" },
-    { coverType: "None" },
-    { coverType: "Doors" }
-  ],
-  [
-    { coverType: "Doors" },
-    { coverType: "None" },
-    { coverType: "Doors" },
-    { coverType: "None" },
-    { coverType: "Doors" },
-    { coverType: "None" },
-    { coverType: "Doors" },
-    { coverType: "None" },
-    { coverType: "Doors" },
-    { coverType: "None" },
-    { coverType: "Doors" }
-  ]
-];
+var inpStructureOrganization =  
+  [  
+     ["None","Drawers" ,"None","Drawers","None","Drawers","None","Drawers","None","Drawers","None"],
+     ["None","Drawers" ,"None","Drawers","None","Drawers","None","Drawers","None","Drawers","None"],
+     ["Doors","None","Doors","None","Doors","None","Doors","None","Doors","None","Doors"],
+     ["None","Drawers" ,"None","Drawers","None","Drawers","None","Drawers","None","Drawers","None"],
+     ["None","Door","None","Doors","None","Doors","None","Doors","None","Doors","None"],
+     ["Doors","None","Doors","None","Doors","None","Doors","None","Doors","None","Doors"],
+     ["None","Drawers" ,"None","Drawers","None","Drawers","None","Drawers","None","Drawers","None"],
+     ["None","Door","None","Doors","None","Doors","None","Doors","None","Doors","None"],
+     ["Doors","None","Doors","None","Doors","None","Doors","None","Doors","None","Doors"],
+     ["None","Drawers" ,"None","Drawers","None","Drawers","None","Drawers","None","Drawers","None"],
+     ["None","Door","None","Doors","None","Doors","None","Doors","None","Doors","None"],
+     ["Doors","None","Doors","None","Doors","None","Doors","None","Doors","None","Doors"],
+     ["Doors","None","Doors","None","Doors","None","Doors","None","Doors","None","Doors"],
+     ["Doors","None","Doors","None","Doors","None","Doors","None","Doors","None","Doors"],
+     ["Doors","None","Doors","None","Doors","None","Doors","None","Doors","None","Doors"]
+  ];
 //final closet structure organization
 var rowHeights = [0.26, 0.19, 0.38];
 var colWidths = [0.28, 0.28, 0.42, 0.42];
@@ -1091,7 +912,7 @@ $(function() {
         ).children[currentIndex]; //objeto silueta
         mueble_old.structureOrganization[currentSilouette.closetIndex[0]][
           currentSilouette.closetIndex[1]
-        ].coverType = newCoverType; //igualamos con la posicion en el mueble del objeto silueta
+        ] = newCoverType; //igualamos con la posicion en el mueble del objeto silueta
       }
 
       MUEBLE.init({
@@ -1386,19 +1207,19 @@ $(function() {
       for (var e = 0; e < resultStructureOrganization[0].length; e++) {
         if (
           currentRowHeights[i] < minDoorHeight &&
-          (resultStructureOrganization[i][e].coverType === "Doors" ||
-            resultStructureOrganization[i][e].coverType === "DoubleDoors")
+          (resultStructureOrganization[i][e] === "Doors" ||
+            resultStructureOrganization[i][e] === "DoubleDoors")
         ) {
           //puertas de menos de 26cm de altura a None
-          resultStructureOrganization[i][e].coverType = "None";
+          resultStructureOrganization[i][e] = "None";
         }
 
         if (
           currentHeight > maxDrawerPositionHeight &&
-          resultStructureOrganization[i][e].coverType === "Drawers"
+          resultStructureOrganization[i][e] === "Drawers"
         ) {
           //cajones a mas de 160cm de altura
-          resultStructureOrganization[i][e].coverType = "None";
+          resultStructureOrganization[i][e] = "None";
         }
       }
     }

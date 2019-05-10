@@ -1,8 +1,18 @@
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/furniture', {useNewUrlParser: true});
+const host = "localhost";
+const port = "27017";
+const database = "furniture";
 
-var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'Furniture connection error:'));
-db.once('open', function() {
-  console.log("Connection done");
-});
+connect = (host, port, database) => {
+  var db;
+  
+  mongoose.connect("mongodb://" + host + ":" + port + "/" + database, {useNewUrlParser: true});
+
+  db = mongoose.connection;
+  db.on('error', console.error.bind(console, 'connection ERROR'));
+  db.once('open', function() {
+    console.log("Connection OK");
+  });
+}
+
+connect(host, port, database);
