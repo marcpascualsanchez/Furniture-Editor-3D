@@ -39,13 +39,7 @@ var MUEBLE = {
       minRowHeight: variables.minRowHeight,
       maxRowHeight: variables.maxRowHeight,
       minColWidth: variables.minColWidth,
-      maxColWidth: variables.maxColWidth,
-      structureJSON: {
-        rowHeights: variables.rowHeights,
-        colWidths: variables.colWidths,
-        rowDepths: variables.rowDepths,
-        coverTypes: variables.structureOrganization
-      }
+      maxColWidth: variables.maxColWidth
     };
     $.extend(this.variables, variables);
 
@@ -1031,6 +1025,15 @@ var MUEBLE = {
   },
 
   getFullStructureJSON(){
-    return this.variables.structureJSON;
+    var structureJSON = {
+      height: this.variables.height,
+      width: this.variables.width,
+      rowHeights: this.variables.rowHeights,
+      colWidths: this.variables.colWidths,
+      rowDepths: this.variables.rowDepths,
+      coverTypes: this.variables.structureOrganization
+    };
+
+    return structureJSON;
   }
 };

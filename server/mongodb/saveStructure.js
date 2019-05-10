@@ -2,6 +2,8 @@ const mongoose = require('mongoose');
 const connection = require('./connection.js');
 
   var furnitureSchema = new mongoose.Schema({
+    height: Number,
+    width: Number,
     rowHeights: [Number],
     colWidths: [Number],
     rowDepths: [Number],
@@ -15,6 +17,6 @@ const connection = require('./connection.js');
 
     newFurniture.save(function (err) {
         if (err) return handleError(err);
-        console.log("done danone");
+        console.log("Collection saved");
       });
   };

@@ -12,7 +12,6 @@ app.get('/', function(req, res) {
 
 app.use(parser.json('application/json'));
 app.post('/saveStructure', function(req, res) {
-    //res.sendFile(path.join(__dirname + "/mongodb/saveStructure.js"));
     saveStructure.insertNewFurniture(req.body);
     res.send("Data recieved");
 });
