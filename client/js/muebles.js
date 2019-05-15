@@ -1026,6 +1026,7 @@ var MUEBLE = {
 
   getFullStructureJSON(){
     var structureJSON = {
+      color: this.variables.color,
       height: this.variables.height,
       width: this.variables.width,
       rowHeights: this.variables.rowHeights,

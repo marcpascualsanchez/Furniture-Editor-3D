@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const connection = require('./connection.js');
 const userModels = require('./models/user');
+const structureList = require('./controllers/listStructure');
+
 var userModel = userModels.userModel;
 
 const messages = {
@@ -10,14 +12,16 @@ const messages = {
   exports.login = (user, serverResponse) =>{
     userModel.find(user, (err, res) => {
       if (err) return handleError(err);
-      
-      res.length > 0 ? allow(serverResponse) : deny(serverResponse);
+
+      res.length > 0 ? allow(serverResponse, user.email) : deny(serverResponse);
     });
   };
 
-  function allow(serverResponse){
-    serverResponse.status(200).send("Login correct");
-    //serverResponse.status(200).send(loadModels()); //send current models
+  function allow(serverResponse, email){
+    //serverResponse.status(200).send("Login correct");
+    structureList.load(email, (res) => {
+        serverResponse.status(200).send(JSON.stringify(res)); //send current models
+    });
     return true;
   }
 

@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
     
     var comprovar = () => {
         structure = MUEBLE.getFullStructureJSON();
+        structure.designer = USER.getEmail();
         
         xhttp.onreadystatechange = function(data) {
             if ( (this.readyState == 4 && this.status == 200)) {

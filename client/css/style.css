@@ -307,3 +307,17 @@ form {
 .error{
   color: tomato;
 }
+.list-color{
+  width: 17px;
+  height: 17px;
+  border: 2px solid white;
+}
+.model-list{
+  display: flex;
+  flex-direction: column;
+}
+.model-list-element{
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+}

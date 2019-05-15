@@ -14,7 +14,7 @@ app.get('/', function(req, res) {
 
 app.use(parser.json('application/json'));
 app.post('/saveStructure', function(req, res) {
-    saveStructure.insertNewFurniture(req.body);
+    saveStructure.insertNewFurniture(req.body, res);
     res.status(200).send("Structure data recieved");
 });
 
