@@ -7,14 +7,14 @@ document.addEventListener("DOMContentLoaded", ()=>{
         user = USER.getJSON();
         
         xhttp.onreadystatechange = function(data) {
-            if ( (this.readyState == 4 && this.status == 200)) {
-                console.log("AJAX OK: " + this.responseText);
+            if (this.readyState == 4) {
+                //console.log("AJAX OK: " + this.responseText);
+                USER.checkLogin(this.status);
             }
-            USER.checkLogin(this.status);
         };
-        xhttp.open("POST", "saveUser", true);
+        xhttp.open("POST", "login", true);
         xhttp.setRequestHeader('Content-Type', 'application/json');
-        xhttp.send(JSON.stringify(structure));        
+        xhttp.send(JSON.stringify(user));        
     }
     saveButton.addEventListener("click", comprovar);
 });

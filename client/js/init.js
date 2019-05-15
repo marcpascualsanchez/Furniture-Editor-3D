@@ -418,6 +418,9 @@ $(function() {
     INTERSECTED: null,
     camera: APP.settings.camera
   });
+  
+  //Inicializar eventos del UI de login y guardar
+  USER.init();
 
   function animationInit() {
     // Inicializar la animacion

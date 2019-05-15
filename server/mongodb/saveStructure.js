@@ -1,19 +1,8 @@
 const mongoose = require('mongoose');
-const connection = require('./connection.js');
-const table = "structures";
 const messageOK = "Collection structure saved";
+const furnitureModels = require('./models/structure');
+var furnitureModel = furnitureModels.furnitureModel;  
 
-  var furnitureSchema = new mongoose.Schema({
-    height: Number,
-    width: Number,
-    rowHeights: [Number],
-    colWidths: [Number],
-    rowDepths: [Number],
-    coverTypes: [[String]]
-  });
-  
-  var furnitureModel = mongoose.model(table, furnitureSchema);
-  
   exports.insertNewFurniture = (structure) =>{
     var newFurniture = new furnitureModel(structure);
 

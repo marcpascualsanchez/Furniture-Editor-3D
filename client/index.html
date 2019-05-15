@@ -16,12 +16,12 @@
     <script src="http://localhost:35729/livereload.js"></script>
   </head>
   <body>
-    <div class="dark-cover">
-      <div id="login" class="cover-container" style="display:block;" hidden>
+    <div class="dark-cover" style="display:none">
+      <div id="login" class="cover-container">
         <span>E-mail</span>
-        <input type="text">
+        <input type="text" class="email-field">
         <span class="password">Contraseña</span>
-        <input type="password">
+        <input type="password" class="password-field">
         <input type="button" id="login-button" value="Login">
       </div>
       <div id="saveAndLoad" class="cover-container" style="display:none;">
@@ -35,7 +35,9 @@
             Cargar
           </a>
         </div>
-      <div class="app" style="display:none;">
+      <input type="button" id="session-close-button">
+    </div>
+      <div class="app">
         <section class="header">
           <div class="container">
             <img class="logo" src="img/logo-ulign.png" />
@@ -301,6 +303,9 @@
                   >
                     880€
                   </h3>
+                  <a class="save-button custom-button" id="session-button">
+                    Login
+                  </a>
                 </div>
                 <form>
                   <div class="custom-header custom-header-range">
@@ -466,7 +471,7 @@
           </div>
         </div>
       </div>
-    </div>
+    
     <!-- PLUGINS -->
     <script src="plugins/jquery-3.3.1.min.js"></script>
     <script
@@ -507,6 +512,7 @@
     <!-- SCRIPTS FUNCTIONS -->
     <!-- SCRIPTS AJAX -->
     <script src="js/ajax/saveStructure.js"></script>
+    <script src="js/ajax/saveUser.js"></script>
     <!-- SCRIPTS AJAX -->
     <!-- START APP -->
     <script src="js/init.js"></script>

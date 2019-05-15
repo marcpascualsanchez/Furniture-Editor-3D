@@ -5,6 +5,7 @@ var app = express();
 
 var saveStructure = require("./mongodb/saveStructure.js");
 var saveUser = require("./mongodb/saveUser.js");
+var login = require("./mongodb/login.js");
 
 app.get('/', function(req, res) {
     app.use(express.static(__dirname + "/../client"));
@@ -14,12 +15,12 @@ app.get('/', function(req, res) {
 app.use(parser.json('application/json'));
 app.post('/saveStructure', function(req, res) {
     saveStructure.insertNewFurniture(req.body);
-    res.send("Structure data recieved");
+    res.status(200).send("Structure data recieved");
 });
 
-app.post('/saveUser', function(req, res) {
+app.post('/login', function(req, res) {
     saveUser.insertNewUser(req.body);
-    res.send("User data recieved");
+    login.login(req.body, res);//responses are handled by /mongodb/login.js
 });
 
 app.listen(8080);

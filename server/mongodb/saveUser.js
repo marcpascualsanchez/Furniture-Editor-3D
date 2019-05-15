@@ -1,21 +1,28 @@
-const mongoose = require('mongoose');
 const connection = require('./connection.js');
-const table = "users";
-const messageOK = "Collection user saved";
+const userModels = require('./models/user');
+var userModel = userModels.userModel;
 
-  var userSchema = new mongoose.Schema({
-    name: String,
-    email: String,
-    password: String
-  });
-  
-  var userModel = mongoose.model(table, userSchema);
+const messages = {
+  created: "Collection user created and saved",
+  rewrited: "Collection user already in DB"
+}
   
   exports.insertNewUser = (user) =>{
-    var newUser = new userModel(user);
-
-    newUser.save(function (err) {
-        if (err) return handleError(err);
-        console.log(messageOK);
-      });
+    userModel.countDocuments({email: user.email}, (err, res) => {
+      if (err) return handleError(err);
+      
+      res <= 0 ? insert(user) : update(user);
+    });
   };
+
+  function insert(user){
+    var newUser = new userModel(user); //casting it to a 'mongoose doc'
+    newUser.save(function (err) {
+      if (err) return handleError(err);
+    });
+    console.log(messages.created);
+  }
+
+  function update(user){
+    console.log(messages.rewrited);
+  }
