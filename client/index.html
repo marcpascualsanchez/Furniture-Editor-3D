@@ -16,436 +16,453 @@
     <script src="http://localhost:35729/livereload.js"></script>
   </head>
   <body>
-    <div class="app">
-      <section class="header">
-        <div class="container">
-          <img class="logo" src="img/logo-ulign.png" />
+    <div class="dark-cover">
+      <div id="login" class="cover-container" style="display:block;" hidden>
+        <span>E-mail</span>
+        <input type="text">
+        <span class="password">Contraseña</span>
+        <input type="password">
+        <input type="button" id="login-button" value="Login">
+      </div>
+      <div id="saveAndLoad" class="cover-container" style="display:none;">
+          <span>Modelos</span>
+          <ul class="model-list">
+          </ul>
+          <a class="save-button custom-button" id="save-button">
+            Guardar
+          </a>
+          <a class="save-button custom-button" id="load-button">
+            Cargar
+          </a>
         </div>
-      </section>
-      <div id="container-settings" class="container" style="z-index: 0">
-        <div id="settings" style="top: 0px; left: 0px;">
-          <div name="cover_form">
-            <form name="cover-types" id="cover-types">
-              <div class="custom-header">
-                <h3 class="custom-buttons-title">Tipo de puerta</h3>
-                <i
-                  id="info-coverType"
-                  class="fa fa-info"
-                  id="info-coverType"
-                ></i>
-                <div
-                  class="popup-info"
-                  id="message-info-coverType"
-                  style="left: 0px;"
-                >
-                  Escoge entre tener cajón o puerta en esta parte de la
-                  estantería.
-                </div>
-              </div>
-              <input
-                name="custom-check-button"
-                id="coverDoors"
-                class="custom-input"
-                type="radio"
-                value="Doors"
-              />
-              <input
-                name="custom-check-button"
-                id="coverDrawers"
-                class="custom-input"
-                type="radio"
-                value="Drawers"
-              />
-              <input
-                name="custom-check-button"
-                id="coverNone"
-                class="custom-input"
-                type="radio"
-                value="None"
-              />
-              <div class="custom-buttons">
-                <label
-                  name="coverType"
-                  for="coverDoors"
-                  id="division-coverDoors"
-                  class="custom-button"
-                  ><span>Puerta</span></label
-                >
-                <label
-                  name="coverType"
-                  for="coverDrawers"
-                  id="division-coverDrawers"
-                  class="custom-button"
-                  ><span>Cajón</span></label
-                >
-                <label
-                  name="coverType"
-                  for="coverNone"
-                  id="division-coverNone"
-                  class="custom-button"
-                  ><span>Vacío</span></label
-                >
-              </div>
-            </form>
-            <form name="row-heights" id="row-heights">
-              <div class="custom-header">
-                <h3 class="custom-buttons-title">Altura</h3>
-                <i class="fa fa-info" id="info-row-height"></i>
-                <div
-                  class="popup-info"
-                  id="message-info-row-height"
-                  style="left: 0px;"
-                >
-                  Escoge la altura que tendrá toda la estantería.
-                </div>
-              </div>
-              <input
-                name="custom-check-button"
-                id="height19"
-                class="row-height custom-input"
-                type="radio"
-                value="0.19"
-              />
-              <input
-                name="custom-check-button"
-                id="height26"
-                class="row-height custom-input"
-                type="radio"
-                value="0.26"
-              />
-              <input
-                name="custom-check-button"
-                id="height38"
-                class="row-height custom-input"
-                type="radio"
-                value="0.38"
-              />
-              <div class="custom-buttons">
-                <label for="height19" id="row-height19" class="custom-button"
-                  ><span>19cm</span></label
-                >
-                <label for="height26" id="row-height26" class="custom-button"
-                  ><span>26cm</span></label
-                >
-                <label for="height38" id="row-height38" class="custom-button"
-                  ><span>38cm</span></label
-                >
-              </div>
-            </form>
-            <form name="row-depths" id="row-depths">
-              <div class="custom-header">
-                <h3 class="custom-buttons-title">Profundidad</h3>
-                <i class="fa fa-info" id="info-row-height"></i>
-                <div
-                  class="popup-info"
-                  id="message-info-row-height"
-                  style="left: 0px;"
-                >
-                  Escoge la profundidad que tendrá toda la estantería.
-                </div>
-              </div>
-              <input
-                name="custom-check-button"
-                id="depth32"
-                class="custom-input"
-                type="radio"
-                value="0.32"
-              />
-              <input
-                name="custom-check-button"
-                id="depth40"
-                class="custom-input"
-                type="radio"
-                value="0.4"
-              />
-              <input
-                name="custom-check-button"
-                id="depth48"
-                class="custom-input"
-                type="radio"
-                value="0.48"
-              />
-              <div class="custom-buttons">
-                <label for="depth32" id="row-depth32" class="custom-button"
-                  ><span>32cm</span></label
-                >
-                <label for="depth40" id="row-depth40" class="custom-button"
-                  ><span>40cm</span></label
-                >
-                <label for="depth48" id="row-depth48" class="custom-button"
-                  ><span>48cm</span></label
-                >
-              </div>
-            </form>
-            <form id="selections">
-              <div class="custom-header">
-                <h3 class="custom-buttons-title">Selección rápida</h3>
-                <i class="fa fa-info" id="info-select"></i>
-                <div
-                  class="popup-info"
-                  id="message-info-select"
-                  style="left: 0px;"
-                >
-                  Selecciona de forma rápida toda la columna o fila.
-                </div>
-              </div>
-              <div class="custom-buttons">
-                <div
-                  id="selection-allRow"
-                  class="custom-button selection"
-                  value="allRow"
-                  name="allRow"
-                >
-                  <span>Fila</span>
-                </div>
-                <div
-                  id="selection-allCol"
-                  class="custom-button selection"
-                  value="allCol"
-                  name="allCol"
-                >
-                  <span>Columna</span>
-                </div>
-              </div>
-            </form>
-            <!--<input
-                     class="custom-button"
-                     type="button"
-                     value="all"
-                     name="all"
-                     />-->
-            <div class="clean-btn" name="hideSettings">
-              <i class="far fa-times-circle"></i>
-            </div>
+      <div class="app" style="display:none;">
+        <section class="header">
+          <div class="container">
+            <img class="logo" src="img/logo-ulign.png" />
           </div>
-          <form>
-            <div class="custom-header custom-header-range">
-              <h3 class="custom-buttons-title">Anchura</h3>
-              <i class="fa fa-info" id="info-col-width"></i>
-              <div
-                class="popup-info"
-                id="message-info-col-width"
-                style="left: 0px;"
-              >
-                Escoge la anchura que deseas en esta columna del mueble.
-              </div>
-              <span id="current-col-width">0cm</span>
-            </div>
-            <input
-              id="col-width"
-              class="range-dimensions custom-range"
-              type="range"
-              max="52"
-              min="28"
-              value="0"
-            />
-          </form>
-        </div>
-        <div class="row">
-          <div
-            class="col-lg-8 col-md-12 col-sm-12 col-xs-12"
-            style="padding: 0;"
-          >
-            <div class="mask mask-left"></div>
-            <div class="mask mask-right"></div>
-            <div class="mask mask-bottom"></div>
-            <div id="loading-overlay">
-              <img src="img/loading-icon.png" class="loading-icon" />
-            </div>
-            <div id="app"></div>
-            <div
-              id="container-presettings"
-              class="container"
-              style="z-index: 1;"
-            >
-              <div id="presettings" style="top: 0px; left: 0px; display: none;">
-                <i style="display:block" class="fa fa-arrow-up"></i>
-                <i class="fa fa-info" id="info-edit"></i>
-                <div
-                  class="popup-info"
-                  id="message-info-edit"
-                  style="left: 0px;"
-                >
-                  Pincha en el apartado del mueble que quieras para editarlo.
-                </div>
-                Haz click para editar
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
-            <div class="main-container-UI">
-              <div class="main-header">
-                <h3
-                  id="final-price"
-                  style="margin-bottom: 0;
-                           margin-top: 8px; display:inline"
-                >
-                  880€
-                </h3>
-                <a class="save-button custom-button" id="save-button">
-                  Guardar
-                </a>
-              </div>
-              <form>
-                <div class="custom-header custom-header-range">
-                  <h3 class="custom-buttons-title">
-                    Anchura <span id="current-width">207cm</span>
-                  </h3>
-                </div>
-                <input
-                  id="furniture-width"
-                  class="range-dimensions custom-range"
-                  type="range"
-                  name="width"
-                  max="260"
-                  min="27"
-                  value="140"
-                />
-              </form>
-              <form>
-                <div class="custom-header custom-header-range">
-                  <h3 class="custom-buttons-title">
-                    Altura <span id="current-height">91cm</span>
-                  </h3>
-                </div>
-                <div class="custom-header-range">
-                  <input
-                    id="furniture-height"
-                    class="range-dimensions custom-range"
-                    type="range"
-                    name="height"
-                    max="250"
-                    min="25"
-                    value="78"
-                  />
-                </div>
-              </form>
-              <form id="furniture-depths">
+        </section>
+        <div id="container-settings" class="container" style="z-index: 0">
+          <div id="settings" style="top: 0px; left: 0px;">
+            <div name="cover_form">
+              <form name="cover-types" id="cover-types">
                 <div class="custom-header">
-                  <h3 class="custom-buttons-title">
-                    Profundidad<span id="current-depth"></span>
-                  </h3>
+                  <h3 class="custom-buttons-title">Tipo de puerta</h3>
+                  <i
+                    id="info-coverType"
+                    class="fa fa-info"
+                    id="info-coverType"
+                  ></i>
+                  <div
+                    class="popup-info"
+                    id="message-info-coverType"
+                    style="left: 0px;"
+                  >
+                    Escoge entre tener cajón o puerta en esta parte de la
+                    estantería.
+                  </div>
                 </div>
                 <input
+                  name="custom-check-button"
+                  id="coverDoors"
                   class="custom-input"
                   type="radio"
-                  id="depth-32"
-                  name="depth"
-                  value="32"
-                  style="margin-right:auto;"
+                  value="Doors"
                 />
                 <input
+                  name="custom-check-button"
+                  id="coverDrawers"
                   class="custom-input"
                   type="radio"
-                  id="depth-40"
-                  name="depth"
-                  value="40"
-                  style="margin-right:auto;"
+                  value="Drawers"
+                />
+                <input
+                  name="custom-check-button"
+                  id="coverNone"
+                  class="custom-input"
+                  type="radio"
+                  value="None"
                 />
                 <div class="custom-buttons">
                   <label
-                    name="depth"
-                    for="depth-32"
-                    id="label-depth-32"
-                    class="custom-button main-custom-button-checked"
+                    name="coverType"
+                    for="coverDoors"
+                    id="division-coverDoors"
+                    class="custom-button"
+                    ><span>Puerta</span></label
+                  >
+                  <label
+                    name="coverType"
+                    for="coverDrawers"
+                    id="division-coverDrawers"
+                    class="custom-button"
+                    ><span>Cajón</span></label
+                  >
+                  <label
+                    name="coverType"
+                    for="coverNone"
+                    id="division-coverNone"
+                    class="custom-button"
+                    ><span>Vacío</span></label
+                  >
+                </div>
+              </form>
+              <form name="row-heights" id="row-heights">
+                <div class="custom-header">
+                  <h3 class="custom-buttons-title">Altura</h3>
+                  <i class="fa fa-info" id="info-row-height"></i>
+                  <div
+                    class="popup-info"
+                    id="message-info-row-height"
+                    style="left: 0px;"
+                  >
+                    Escoge la altura que tendrá toda la estantería.
+                  </div>
+                </div>
+                <input
+                  name="custom-check-button"
+                  id="height19"
+                  class="row-height custom-input"
+                  type="radio"
+                  value="0.19"
+                />
+                <input
+                  name="custom-check-button"
+                  id="height26"
+                  class="row-height custom-input"
+                  type="radio"
+                  value="0.26"
+                />
+                <input
+                  name="custom-check-button"
+                  id="height38"
+                  class="row-height custom-input"
+                  type="radio"
+                  value="0.38"
+                />
+                <div class="custom-buttons">
+                  <label for="height19" id="row-height19" class="custom-button"
+                    ><span>19cm</span></label
+                  >
+                  <label for="height26" id="row-height26" class="custom-button"
+                    ><span>26cm</span></label
+                  >
+                  <label for="height38" id="row-height38" class="custom-button"
+                    ><span>38cm</span></label
+                  >
+                </div>
+              </form>
+              <form name="row-depths" id="row-depths">
+                <div class="custom-header">
+                  <h3 class="custom-buttons-title">Profundidad</h3>
+                  <i class="fa fa-info" id="info-row-height"></i>
+                  <div
+                    class="popup-info"
+                    id="message-info-row-height"
+                    style="left: 0px;"
+                  >
+                    Escoge la profundidad que tendrá toda la estantería.
+                  </div>
+                </div>
+                <input
+                  name="custom-check-button"
+                  id="depth32"
+                  class="custom-input"
+                  type="radio"
+                  value="0.32"
+                />
+                <input
+                  name="custom-check-button"
+                  id="depth40"
+                  class="custom-input"
+                  type="radio"
+                  value="0.4"
+                />
+                <input
+                  name="custom-check-button"
+                  id="depth48"
+                  class="custom-input"
+                  type="radio"
+                  value="0.48"
+                />
+                <div class="custom-buttons">
+                  <label for="depth32" id="row-depth32" class="custom-button"
                     ><span>32cm</span></label
                   >
-                  <label
-                    name="depth"
-                    for="depth-40"
-                    id="label-depth-40"
-                    class="custom-button"
+                  <label for="depth40" id="row-depth40" class="custom-button"
                     ><span>40cm</span></label
+                  >
+                  <label for="depth48" id="row-depth48" class="custom-button"
+                    ><span>48cm</span></label
                   >
                 </div>
               </form>
-
-              <form id="furniture-colors">
-                <input
-                  name="furniture-color"
-                  id="color1"
-                  class="furniture-color color-circle"
-                  type="radio"
-                  value="#ffffff"
-                />
-                <input
-                  name="furniture-color"
-                  id="color2"
-                  class="furniture-color color-circle"
-                  type="radio"
-                  value="#a9aaac"
-                />
-                <input
-                  name="furniture-color"
-                  id="color3"
-                  class="furniture-color color-circle"
-                  type="radio"
-                  value="#231919"
-                  checked
-                />
-                <input
-                  name="furniture-color"
-                  id="color4"
-                  class="furniture-color color-circle"
-                  type="radio"
-                  value="#115237"
-                />
-                <input
-                  name="furniture-color"
-                  id="color5"
-                  class="furniture-color color-circle"
-                  type="radio"
-                  value="#5d484f"
-                />
-                <div class="custom-color">
-                  <label
-                    for="color1"
-                    id="circle-color1"
-                    class="color-circle"
-                    style="background-color: #ffffff;"
-                  ></label>
-                  <label
-                    for="color2"
-                    id="circle-color2"
-                    class="color-circle"
-                    style="background-color: #a9aaac;"
-                  ></label>
-                  <label
-                    for="color3"
-                    id="circle-color3"
-                    class="color-circle color-circle-checked"
-                    style="background-color: #231919;"
-                  ></label>
-                  <label
-                    for="color4"
-                    id="circle-color4"
-                    class="color-circle"
-                    style="background-color: #115237;"
-                  ></label>
-                  <label
-                    for="color5"
-                    class="color-circle"
-                    id="circle-color5"
-                    style="background-color: #5d484f;"
-                  ></label>
+              <form id="selections">
+                <div class="custom-header">
+                  <h3 class="custom-buttons-title">Selección rápida</h3>
+                  <i class="fa fa-info" id="info-select"></i>
+                  <div
+                    class="popup-info"
+                    id="message-info-select"
+                    style="left: 0px;"
+                  >
+                    Selecciona de forma rápida toda la columna o fila.
+                  </div>
+                </div>
+                <div class="custom-buttons">
+                  <div
+                    id="selection-allRow"
+                    class="custom-button selection"
+                    value="allRow"
+                    name="allRow"
+                  >
+                    <span>Fila</span>
+                  </div>
+                  <div
+                    id="selection-allCol"
+                    class="custom-button selection"
+                    value="allCol"
+                    name="allCol"
+                  >
+                    <span>Columna</span>
+                  </div>
                 </div>
               </form>
+              <!--<input
+                      class="custom-button"
+                      type="button"
+                      value="all"
+                      name="all"
+                      />-->
+              <div class="clean-btn" name="hideSettings">
+                <i class="far fa-times-circle"></i>
+              </div>
             </div>
-            <!--
-                     <fieldset>
-                       <hr />
-                       <div class="row">
-                         <div class="col-md-6">
-                           <input type="color" name="wall" />
-                           <label for="wall">Pared</label>
-                         </div>
-                         <div class="col-md-6">
-                           <input type="color" name="floor" />
-                           <label for="floor">Suelo</label>
-                         </div>
-                       </div>
-                     </fieldset>
-                     -->
+            <form>
+              <div class="custom-header custom-header-range">
+                <h3 class="custom-buttons-title">Anchura</h3>
+                <i class="fa fa-info" id="info-col-width"></i>
+                <div
+                  class="popup-info"
+                  id="message-info-col-width"
+                  style="left: 0px;"
+                >
+                  Escoge la anchura que deseas en esta columna del mueble.
+                </div>
+                <span id="current-col-width">0cm</span>
+              </div>
+              <input
+                id="col-width"
+                class="range-dimensions custom-range"
+                type="range"
+                max="52"
+                min="28"
+                value="0"
+              />
+            </form>
+          </div>
+          <div class="row">
+            <div
+              class="col-lg-8 col-md-12 col-sm-12 col-xs-12"
+              style="padding: 0;"
+            >
+              <div class="mask mask-left"></div>
+              <div class="mask mask-right"></div>
+              <div class="mask mask-bottom"></div>
+              <div id="loading-overlay">
+                <img src="img/loading-icon.png" class="loading-icon" />
+              </div>
+              <div id="app"></div>
+              <div
+                id="container-presettings"
+                class="container"
+                style="z-index: 1;"
+              >
+                <div id="presettings" style="top: 0px; left: 0px; display: none;">
+                  <i style="display:block" class="fa fa-arrow-up"></i>
+                  <i class="fa fa-info" id="info-edit"></i>
+                  <div
+                    class="popup-info"
+                    id="message-info-edit"
+                    style="left: 0px;"
+                  >
+                    Pincha en el apartado del mueble que quieras para editarlo.
+                  </div>
+                  Haz click para editar
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
+              <div class="main-container-UI">
+                <div class="main-header">
+                  <h3
+                    id="final-price"
+                    style="margin-bottom: 0;
+                            margin-top: 8px; display:inline"
+                  >
+                    880€
+                  </h3>
+                </div>
+                <form>
+                  <div class="custom-header custom-header-range">
+                    <h3 class="custom-buttons-title">
+                      Anchura <span id="current-width">207cm</span>
+                    </h3>
+                  </div>
+                  <input
+                    id="furniture-width"
+                    class="range-dimensions custom-range"
+                    type="range"
+                    name="width"
+                    max="260"
+                    min="27"
+                    value="140"
+                  />
+                </form>
+                <form>
+                  <div class="custom-header custom-header-range">
+                    <h3 class="custom-buttons-title">
+                      Altura <span id="current-height">91cm</span>
+                    </h3>
+                  </div>
+                  <div class="custom-header-range">
+                    <input
+                      id="furniture-height"
+                      class="range-dimensions custom-range"
+                      type="range"
+                      name="height"
+                      max="250"
+                      min="25"
+                      value="78"
+                    />
+                  </div>
+                </form>
+                <form id="furniture-depths">
+                  <div class="custom-header">
+                    <h3 class="custom-buttons-title">
+                      Profundidad<span id="current-depth"></span>
+                    </h3>
+                  </div>
+                  <input
+                    class="custom-input"
+                    type="radio"
+                    id="depth-32"
+                    name="depth"
+                    value="32"
+                    style="margin-right:auto;"
+                  />
+                  <input
+                    class="custom-input"
+                    type="radio"
+                    id="depth-40"
+                    name="depth"
+                    value="40"
+                    style="margin-right:auto;"
+                  />
+                  <div class="custom-buttons">
+                    <label
+                      name="depth"
+                      for="depth-32"
+                      id="label-depth-32"
+                      class="custom-button main-custom-button-checked"
+                      ><span>32cm</span></label
+                    >
+                    <label
+                      name="depth"
+                      for="depth-40"
+                      id="label-depth-40"
+                      class="custom-button"
+                      ><span>40cm</span></label
+                    >
+                  </div>
+                </form>
+
+                <form id="furniture-colors">
+                  <input
+                    name="furniture-color"
+                    id="color1"
+                    class="furniture-color color-circle"
+                    type="radio"
+                    value="#ffffff"
+                  />
+                  <input
+                    name="furniture-color"
+                    id="color2"
+                    class="furniture-color color-circle"
+                    type="radio"
+                    value="#a9aaac"
+                  />
+                  <input
+                    name="furniture-color"
+                    id="color3"
+                    class="furniture-color color-circle"
+                    type="radio"
+                    value="#231919"
+                    checked
+                  />
+                  <input
+                    name="furniture-color"
+                    id="color4"
+                    class="furniture-color color-circle"
+                    type="radio"
+                    value="#115237"
+                  />
+                  <input
+                    name="furniture-color"
+                    id="color5"
+                    class="furniture-color color-circle"
+                    type="radio"
+                    value="#5d484f"
+                  />
+                  <div class="custom-color">
+                    <label
+                      for="color1"
+                      id="circle-color1"
+                      class="color-circle"
+                      style="background-color: #ffffff;"
+                    ></label>
+                    <label
+                      for="color2"
+                      id="circle-color2"
+                      class="color-circle"
+                      style="background-color: #a9aaac;"
+                    ></label>
+                    <label
+                      for="color3"
+                      id="circle-color3"
+                      class="color-circle color-circle-checked"
+                      style="background-color: #231919;"
+                    ></label>
+                    <label
+                      for="color4"
+                      id="circle-color4"
+                      class="color-circle"
+                      style="background-color: #115237;"
+                    ></label>
+                    <label
+                      for="color5"
+                      class="color-circle"
+                      id="circle-color5"
+                      style="background-color: #5d484f;"
+                    ></label>
+                  </div>
+                </form>
+              </div>
+              <!--
+                      <fieldset>
+                        <hr />
+                        <div class="row">
+                          <div class="col-md-6">
+                            <input type="color" name="wall" />
+                            <label for="wall">Pared</label>
+                          </div>
+                          <div class="col-md-6">
+                            <input type="color" name="floor" />
+                            <label for="floor">Suelo</label>
+                          </div>
+                        </div>
+                      </fieldset>
+                      -->
+            </div>
           </div>
         </div>
       </div>
@@ -483,6 +500,7 @@
     <script src="js/mouse.js"></script>
     <script src="js/textureLoader.js"></script>
     <script src="js/objectLoader.js"></script>
+    <script src="js/user.js"></script>
     <!-- SCRIPTS APP -->
     <!-- SCRIPTS FUNCTIONS -->
     <script src="js/UI.js"></script>
