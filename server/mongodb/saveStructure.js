@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 const connection = require('./connection.js');
+const table = "structures";
+const messageOK = "Collection structure saved";
 
   var furnitureSchema = new mongoose.Schema({
     height: Number,
@@ -10,13 +12,13 @@ const connection = require('./connection.js');
     coverTypes: [[String]]
   });
   
-  var furnitureModel = mongoose.model('structures', furnitureSchema);
+  var furnitureModel = mongoose.model(table, furnitureSchema);
   
   exports.insertNewFurniture = (structure) =>{
     var newFurniture = new furnitureModel(structure);
 
     newFurniture.save(function (err) {
         if (err) return handleError(err);
-        console.log("Collection saved");
+        console.log(messageOK);
       });
   };
