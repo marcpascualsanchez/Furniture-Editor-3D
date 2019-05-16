@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", ()=>{
-    var saveButton = document.querySelector("#login-button");
+    var loginButton = document.querySelector("#login-button");
+    var saveButton = document.querySelector("#save-button");
     var xhttp = new XMLHttpRequest();
     var user;
     
@@ -17,5 +18,6 @@ document.addEventListener("DOMContentLoaded", ()=>{
         xhttp.setRequestHeader('Content-Type', 'application/json');
         xhttp.send(JSON.stringify(user));        
     }
+    loginButton.addEventListener("click", comprovar);
     saveButton.addEventListener("click", comprovar);
 });

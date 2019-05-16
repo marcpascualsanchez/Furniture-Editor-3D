@@ -4,6 +4,7 @@ const table = "structures";
 var furnitureSchema = new mongoose.Schema({
     color: String,
     designer: String,
+    date: String,
     height: Number,
     width: Number,
     rowHeights: [Number],

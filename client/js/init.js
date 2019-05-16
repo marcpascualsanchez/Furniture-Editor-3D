@@ -945,6 +945,41 @@ $(function() {
     }
   });
 
+  $(document).on("click", '#load-button', function(e) {
+    //load modelo guardado
+    var checkBoxArray = document.querySelectorAll(".load-model-checkbox");
+    var id;
+    var newModel;
+    var mueble_old = MUEBLE.get_old();
+
+    for(var i = 0; i < checkBoxArray.length; i++){
+      if(checkBoxArray[i].checked) id = checkBoxArray[i].value;
+    }
+    newModel = USER.getList()[id];
+
+      MUEBLE.init({
+        create: true,
+        width: newModel.width,
+        height: newModel.height,
+        depth: mueble_old.depth,
+        thick: mueble_old.thick,
+        marginWall: mueble_old.marginWall,
+        shelf: mueble_old.shelf,
+        color: parseInt(newModel.color),
+        objectTexture: TEXTURE_LOADER.get(),
+        structureOrganization: newModel.coverTypes,
+        rowHeights: newModel.rowHeights,
+        colWidths: newModel.colWidths,
+        rowDepths: newModel.rowDepths,
+        legsLength: mueble_old.legsLength,
+        minRowHeight: mueble_old.minRowHeight,
+        maxRowHeight: mueble_old.maxRowHeight,
+        minColWidth: mueble_old.minColWidth,
+        maxColWidth: mueble_old.maxColWidth
+      });
+      remakeCloset(true);
+  });
+
   $("#settings").mouseover(function(e) {
     APP.auxs.insideUI = true;
   });

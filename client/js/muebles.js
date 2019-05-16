@@ -598,9 +598,9 @@ var MUEBLE = {
     for (var i = 0; i < numRows; i++) {
       for (var e = 0; e < numColumns; e++) {
         finalPrice += this.constants.prices.columnPrice;
-        if (coverTypes[i][e].coverType === "Doors") {
+        if (coverTypes[i][e] === "Doors") {
           finalPrice += this.constants.prices.doorPrice;
-        } else if (coverTypes[i][e].coverType === "Drawers") {
+        } else if (coverTypes[i][e] === "Drawers") {
           finalPrice += this.constants.prices.drawerPrice;
         }
       }

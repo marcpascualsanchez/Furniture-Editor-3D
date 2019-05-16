@@ -28,6 +28,7 @@ var USER = {
     enableSaveAndLoad: () =>{
         document.querySelector("#login").setAttribute("style", "display: none;");
         document.querySelector("#saveAndLoad").setAttribute("style", "display: block;");
+        document.querySelector("#login-button").value = "Guardar";
     },
     sendLoginError: () =>{
         document.querySelector(".password").classList.add("error");
@@ -78,12 +79,12 @@ var USER = {
         let checkBox = document.createElement("INPUT");
         let description = document.createElement("SPAN");
         let color = document.createElement("DIV");
-        console.log(structure);
         
         newModel.setAttribute("class", "model-list-element");
-        checkBox.setAttribute("data-id", id);
+        checkBox.setAttribute("value", id);
         checkBox.setAttribute("type", "checkbox");
-        description.textContent = id + ", " + structure.width + "cm x " + structure.height + "cm, date";
+        checkBox.setAttribute("class", "load-model-checkbox");
+        description.textContent = id+1 + ", " + structure.width + "cm x " + structure.height + "cm, " + structure.date;
         color.setAttribute("class", "list-color");
         color.setAttribute("style", "background-color: #" + parseInt(structure.color).toString(16) + ";");
 
@@ -94,6 +95,15 @@ var USER = {
         return newModel;
     },
     logout: () =>{
-        console.log("logging out");
+        USER.setEmail(null);
+        document.querySelector("#login").setAttribute("style", "display: block;");
+        document.querySelector("#saveAndLoad").setAttribute("style", "display: none;");
+        document.querySelector("#login-button").value = "Login";
+    },
+    setEmail: (email) => {
+        USER.variables.email = email;
+    },
+    getList: () => {
+        return USER.variables.list;
     }
 }
