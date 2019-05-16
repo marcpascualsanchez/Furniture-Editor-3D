@@ -2,9 +2,11 @@ var USER = {
     init: () =>{
         let userButton = document.querySelector("#session-button");
         let userCloseButton = document.querySelector("#session-close-button");
+        let userExitButton = document.querySelector("#session-exit-button");
         
         userButton.addEventListener("click", USER.showUserUI);
         userCloseButton.addEventListener("click", USER.hideUserUI);
+        userExitButton.addEventListener("click", USER.logout);
     },
     variables: {
         created: null,
@@ -24,7 +26,7 @@ var USER = {
         }
     },
     enableSaveAndLoad: () =>{
-        //document.querySelector("#login").setAttribute("style", "display: none;");
+        document.querySelector("#login").setAttribute("style", "display: none;");
         document.querySelector("#saveAndLoad").setAttribute("style", "display: block;");
     },
     sendLoginError: () =>{
@@ -34,7 +36,9 @@ var USER = {
         document.querySelector(".dark-cover").setAttribute("style", "display: block;");
     },
     hideUserUI: () =>{
-        document.querySelector(".dark-cover").setAttribute("style", "display: none;");
+        if(event.target.id == "session-close-button"){
+            document.querySelector(".dark-cover").setAttribute("style", "display: none;");
+        }
     },
     getJSON: () => {
         USER.getFormData();
@@ -88,5 +92,8 @@ var USER = {
         newModel.appendChild(color);
 
         return newModel;
+    },
+    logout: () =>{
+        console.log("logging out");
     }
 }

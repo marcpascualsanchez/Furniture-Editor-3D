@@ -13,29 +13,33 @@
       integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
       crossorigin="anonymous"
     />
-    <script src="http://localhost:35729/livereload.js"></script>
+    <!--<script src="http://localhost:35729/livereload.js"></script>-->
   </head>
   <body>
-    <div class="dark-cover" style="display:none">
-      <div id="login" class="cover-container">
-        <span>E-mail</span>
-        <input type="text" class="email-field">
-        <span class="password">Contraseña</span>
-        <input type="password" class="password-field">
-        <input type="button" id="login-button" value="Login">
+    <div class="dark-cover" id="session-close-button" style="display:none">
+      <div id="login" class="cover-container" style="display: block">
+        <div>
+          <span>E-mail</span>
+          <input type="text" class="email-field">
+        </div>
+        <div>
+          <span class="password">Contraseña</span>
+          <input type="password" class="password-field">
+        </div>
+        <div class="row">
+          <input type="button" class="session-button col-md-4 offset-md-4" id="login-button" value="Login">
+        </div>
       </div>
       <div id="saveAndLoad" class="cover-container" style="display:none;">
-          <span>Modelos</span>
+          <h3>Modelos</h3>
           <ul class="model-list">
           </ul>
-          <a class="save-button custom-button" id="save-button">
-            Guardar
-          </a>
-          <a class="save-button custom-button" id="load-button">
-            Cargar
-          </a>
+          <div class="row">
+            <input type="button" class="session-button col-md-4 offset-md-1" id="save-button" value="Guardar">
+            <input type="button" class="session-button col-md-4 offset-md-2" id="load-button" value="Cargar">
+            <input type="button" class="session-button col-md-4 offset-md-4" id="session-exit-button" value="Logout">
+          </div>
         </div>
-      <input type="button" id="session-close-button">
     </div>
       <div class="app">
         <section class="header">
