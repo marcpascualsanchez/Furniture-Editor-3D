@@ -1,6 +1,7 @@
 var express = require('express');
 var parser = require('body-parser');
 var path = require('path');
+var favicon = require('serve-favicon');
 var app = express();
 
 var saveStructure = require("./mongodb/saveStructure.js");
@@ -22,3 +23,5 @@ app.post('/login', function(req, res) {
 });
 
 app.listen(8080);
+
+app.use(favicon(__dirname + '/img/favicon.ico'));
