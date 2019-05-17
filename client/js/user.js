@@ -31,17 +31,17 @@ var USER = {
     enableSaveAndLoad: () =>{
         document.querySelector("#login").setAttribute("style", "display: none;");
         document.querySelector("#saveAndLoad").setAttribute("style", "display: block;");
-        document.querySelector("#login-button").value = "Guardar";
+        document.querySelector("#session-button").text = "Guardar";
     },
     sendPasswordError: () =>{
-        document.querySelector(".password").classList.add("error");
+        document.querySelector(".pass-error").classList.add("fas", "fa-ban");
     },
     sendEmailError: () =>{
-        document.querySelector(".email").classList.add("error");
+        document.querySelector(".email-error").classList.add("fas", "fa-ban");
     },
     resetErrors: () =>{
-        document.querySelector(".password").classList.remove("error");
-        document.querySelector(".email").classList.remove("error");
+        document.querySelector(".pass-error").classList.remove("fas", "fa-ban");
+        document.querySelector(".email-error").classList.remove("fas", "fa-ban");
     },
     showUserUI: () =>{
         document.querySelector(".dark-cover").setAttribute("style", "display: block;");
@@ -98,21 +98,34 @@ var USER = {
     createListElement: (structure) => {
         var newModel = document.createElement("LI");
         let checkBox = document.createElement("INPUT");
-        let description = document.createElement("SPAN");
+        let description = document.createElement("DIV");
+        let dimensions = document.createElement("SPAN");
+        let date = document.createElement("SPAN");
+        let colorContainer = document.createElement("DIV");
         let color = document.createElement("DIV");
-        
+        let hourIcon = document.createElement("I");
+
         newModel.setAttribute("class", "model-list-element");
         checkBox.setAttribute("value", structure.slotId);
         checkBox.setAttribute("type", "radio");
         checkBox.setAttribute("name", "model-radio");
         checkBox.setAttribute("class", "load-model-checkbox");
-        description.textContent = structure.slotId+1 + ", " + structure.width + "cm x " + structure.height + "cm, " + structure.date;
-        color.setAttribute("class", "list-color");
+        checkBox.setAttribute("class", "load-model-checkbox col-1");
+        hourIcon.setAttribute("class", "far fa-clock");
+        description.setAttribute("class", "col-9");
+        dimensions.textContent = structure.width + "cm x " + structure.height + "cm";
+        date.textContent = structure.date;
+        colorContainer.setAttribute("class", "col-2 color-circle-container");
+        color.setAttribute("class", "color-circle");
         color.setAttribute("style", "background-color: #" + parseInt(structure.color).toString(16) + ";");
 
+        description.appendChild(dimensions);
+        description.appendChild(hourIcon);
+        description.appendChild(date);
+        colorContainer.appendChild(color);
         newModel.appendChild(checkBox);
         newModel.appendChild(description);
-        newModel.appendChild(color);
+        newModel.appendChild(colorContainer);
 
         return newModel;
     },
@@ -125,8 +138,9 @@ var USER = {
         checkBox.setAttribute("value", id);
         checkBox.setAttribute("type", "radio");
         checkBox.setAttribute("name", "model-radio");
-        checkBox.setAttribute("class", "load-model-checkbox");
-        description.textContent = id+1 + ", sin datos guardados";
+        checkBox.setAttribute("class", "load-model-checkbox col-1");
+        description.setAttribute("class", "no-data col-11 text-left")
+        description.textContent = "Sin datos guardados";
 
         newModel.appendChild(checkBox);
         newModel.appendChild(description);
@@ -137,7 +151,7 @@ var USER = {
         USER.setEmail(null);
         document.querySelector("#login").setAttribute("style", "display: block;");
         document.querySelector("#saveAndLoad").setAttribute("style", "display: none;");
-        document.querySelector("#login-button").value = "Login";
+        document.querySelector("#session-button").text = "Login";
     },
     setEmail: (email) => {
         USER.variables.email = email;
@@ -178,7 +192,7 @@ var USER = {
         var mm = String(today.getMonth() + 1).padStart(2, '0'); //January = 0
         var yyyy = today.getFullYear();
     
-        today = hh + ":" + mi + ", " + dd + '/' + mm + '/' + yyyy;
+        today = hh + ":" + mi + "<i class='far fa-clock'> " + dd + '/' + mm + '/' + yyyy;
 
         return today;
     }

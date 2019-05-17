@@ -301,7 +301,7 @@ form {
   z-index: 10;
   margin: auto;
   margin-top: 30vh;
-  max-width: 350px;
+  max-width: 400px;
   padding: 10px 15px;
   box-sizing: border-box;
   border: 1px solid #d7dadb;
@@ -335,10 +335,45 @@ form {
   cursor: pointer;
   border-radius: 10px !important;
   border-left: 1px solid #d7dadb;
+  background-color: #edf0f0;
   flex: 0;
   width: 100px;
 }
 .session-button:hover {
   background-color: #6ba7ba;
   color: #f1f1f1 !important;
+}
+.cover-container > div > input[type=text], .cover-container > div > input[type=password]{
+  text-align: center;
+  border: none;
+  background-color: #edf0f0;
+  margin: 7px 0;
+}
+.cover-container > ul{
+  padding: 5px 0;
+}
+.cover-container > ul > li > *, li > .color-circle-container{
+  margin: auto 0;
+}
+.cover-container > ul > li:nth-child(odd){
+  background-color: #edf0f0;
+}
+.far {
+  color: #5f8da6;
+  margin: 0 5px;
+}
+.no-data{
+  color: #00000055;
+}
+.save-title, .password, .email{
+  font-size: 18px;
+}
+i.pass-error, i.email-error{
+  position: relative;
+  color: tomato;
+  top: 35px;
+  z-index: 11;
+}
+.error-icon{
+  position: absolute;
 }
