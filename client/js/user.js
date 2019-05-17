@@ -19,10 +19,13 @@ var USER = {
         return USER.variables.email;
     },
     checkLogin: (code) =>{
+        USER.resetErrors();
         if(code === 200){
             USER.enableSaveAndLoad();
-        }else{
-            USER.sendLoginError();
+        }else if(code === 400){
+            USER.sendEmailError();
+        }else if(code === 401){
+            USER.sendPasswordError();
         }
     },
     enableSaveAndLoad: () =>{
@@ -30,8 +33,15 @@ var USER = {
         document.querySelector("#saveAndLoad").setAttribute("style", "display: block;");
         document.querySelector("#login-button").value = "Guardar";
     },
-    sendLoginError: () =>{
+    sendPasswordError: () =>{
         document.querySelector(".password").classList.add("error");
+    },
+    sendEmailError: () =>{
+        document.querySelector(".email").classList.add("error");
+    },
+    resetErrors: () =>{
+        document.querySelector(".password").classList.remove("error");
+        document.querySelector(".email").classList.remove("error");
     },
     showUserUI: () =>{
         document.querySelector(".dark-cover").setAttribute("style", "display: block;");
@@ -58,13 +68,24 @@ var USER = {
     },
     loadModelList: (structures) => {
         let listElement = document.querySelector(".model-list");
-        let i = 0;
+        let emptySlot;
+        //let sortedStructures = USER.sortStructuresBySlotId(structures);
         USER.cleanHTMLList();
         USER.variables.list = structures;
 
-        while( i < USER.variables.listMax && i < structures.length ){
-            listElement.appendChild(USER.createListElement(i, structures[i]));
-            i++;
+        for (let i = 0; i < USER.variables.listMax; i++) {
+            emptySlot = true;
+
+            for (let j = 0; j < structures.length; j++) {
+                if(structures[j].slotId == i){
+                    listElement.appendChild(USER.createListElement(structures[j]));
+                    emptySlot = false;
+                }
+            }
+
+            if(emptySlot){
+                listElement.appendChild(USER.createEmptyElement(i));
+            }
         }
     },
     cleanHTMLList: () => {
@@ -74,23 +95,41 @@ var USER = {
             listElement.removeChild(listElement.firstChild);
         }
     },
-    createListElement: (id, structure) => {
+    createListElement: (structure) => {
         var newModel = document.createElement("LI");
         let checkBox = document.createElement("INPUT");
         let description = document.createElement("SPAN");
         let color = document.createElement("DIV");
         
         newModel.setAttribute("class", "model-list-element");
-        checkBox.setAttribute("value", id);
-        checkBox.setAttribute("type", "checkbox");
+        checkBox.setAttribute("value", structure.slotId);
+        checkBox.setAttribute("type", "radio");
+        checkBox.setAttribute("name", "model-radio");
         checkBox.setAttribute("class", "load-model-checkbox");
-        description.textContent = id+1 + ", " + structure.width + "cm x " + structure.height + "cm, " + structure.date;
+        description.textContent = structure.slotId+1 + ", " + structure.width + "cm x " + structure.height + "cm, " + structure.date;
         color.setAttribute("class", "list-color");
         color.setAttribute("style", "background-color: #" + parseInt(structure.color).toString(16) + ";");
 
         newModel.appendChild(checkBox);
         newModel.appendChild(description);
         newModel.appendChild(color);
+
+        return newModel;
+    },
+    createEmptyElement: (id) => {
+        var newModel = document.createElement("LI");
+        let checkBox = document.createElement("INPUT");
+        let description = document.createElement("SPAN");
+        
+        newModel.setAttribute("class", "model-list-element");
+        checkBox.setAttribute("value", id);
+        checkBox.setAttribute("type", "radio");
+        checkBox.setAttribute("name", "model-radio");
+        checkBox.setAttribute("class", "load-model-checkbox");
+        description.textContent = id+1 + ", sin datos guardados";
+
+        newModel.appendChild(checkBox);
+        newModel.appendChild(description);
 
         return newModel;
     },
@@ -105,5 +144,42 @@ var USER = {
     },
     getList: () => {
         return USER.variables.list;
+    },
+    getSlotId: () => {
+        var id;
+        var checkBoxArray = document.querySelectorAll(".load-model-checkbox");
+
+        for(var i = 0; i < checkBoxArray.length; i++){
+            if(checkBoxArray[i].checked) id = checkBoxArray[i].value;
+        }
+
+        return id;
+    },
+    sortStructuresBySlotId: (structures) => {
+        return structures.sort( USER.compareTo );
+    },
+    compareTo: (a, b) => {
+            let result = 0;
+
+            if ( a.slotId < b.slotId ){
+              result = -1;
+            }
+            if ( a.slotId > b.slotId ){
+              result = 1;
+            }
+
+            return result;
+    },
+    getCurrentDate: () => {
+        var today = new Date();
+        var dd = String(today.getDate()).padStart(2, '0');
+        var hh = String(today.getHours()).padStart(2, '0');
+        var mi = String(today.getMinutes()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0'); //January = 0
+        var yyyy = today.getFullYear();
+    
+        today = hh + ":" + mi + ", " + dd + '/' + mm + '/' + yyyy;
+
+        return today;
     }
 }

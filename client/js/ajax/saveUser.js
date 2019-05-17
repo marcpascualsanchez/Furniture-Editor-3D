@@ -11,7 +11,9 @@ document.addEventListener("DOMContentLoaded", ()=>{
             if (this.readyState == 4) {
                 //console.log("AJAX OK: " + this.responseText);
                 USER.checkLogin(this.status);
-                USER.loadModelList(JSON.parse(this.response));
+                if(this.status === 200){
+                    USER.loadModelList(JSON.parse(this.response));
+                }
             }
         };
         xhttp.open("POST", "login", true);

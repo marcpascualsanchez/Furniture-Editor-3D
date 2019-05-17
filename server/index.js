@@ -4,7 +4,6 @@ var path = require('path');
 var app = express();
 
 var saveStructure = require("./mongodb/saveStructure.js");
-var saveUser = require("./mongodb/saveUser.js");
 var login = require("./mongodb/login.js");
 
 app.get('/', function(req, res) {
@@ -19,7 +18,6 @@ app.post('/saveStructure', function(req, res) {
 });
 
 app.post('/login', function(req, res) {
-    saveUser.insertNewUser(req.body);
     login.login(req.body, res);//responses are handled by /mongodb/login.js
 });
 

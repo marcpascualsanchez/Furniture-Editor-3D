@@ -947,16 +947,16 @@ $(function() {
 
   $(document).on("click", '#load-button', function(e) {
     //load modelo guardado
-    var checkBoxArray = document.querySelectorAll(".load-model-checkbox");
-    var id;
     var newModel;
     var mueble_old = MUEBLE.get_old();
+    var structures = USER.getList();
 
-    for(var i = 0; i < checkBoxArray.length; i++){
-      if(checkBoxArray[i].checked) id = checkBoxArray[i].value;
+    for (let i = 0; i < structures.length; i++) {
+      if(structures[i].slotId == USER.getSlotId()){
+        newModel = structures[i];
+      }
     }
-    newModel = USER.getList()[id];
-
+    if(newModel != undefined && newModel != null){
       MUEBLE.init({
         create: true,
         width: newModel.width,
@@ -978,6 +978,7 @@ $(function() {
         maxColWidth: mueble_old.maxColWidth
       });
       remakeCloset(true);
+    }
   });
 
   $("#settings").mouseover(function(e) {

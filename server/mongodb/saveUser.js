@@ -4,7 +4,7 @@ var userModel = userModels.userModel;
 
 const messages = {
   created: "Collection user created and saved",
-  rewrited: "Collection user already in DB"
+  alreadyIn: "Collection user already in DB"
 }
   
   exports.insertNewUser = (user) =>{
@@ -24,5 +24,6 @@ const messages = {
   }
 
   function update(user){
-    console.log(messages.rewrited);
+    //if user was already in db
+    console.log(messages.alreadyIn);
   }

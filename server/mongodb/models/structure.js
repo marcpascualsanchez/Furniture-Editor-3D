@@ -2,8 +2,9 @@ const mongoose = require('mongoose');
 const table = "structures";
 
 var furnitureSchema = new mongoose.Schema({
-    color: String,
     designer: String,
+    slotId: Number,  
+    color: String,
     date: String,
     height: Number,
     width: Number,

@@ -2,30 +2,55 @@ const mongoose = require('mongoose');
 const connection = require('./connection.js');
 const userModels = require('./models/user');
 const structureList = require('./controllers/listStructure');
-
 var userModel = userModels.userModel;
-
 const messages = {
-  error: "User password incorrect"
+  errorPassword: "User password incorrect",
+  errorEmail: "Email incorrect"
 }
+var saveUser = require("./saveUser.js");
   
   exports.login = (user, serverResponse) =>{
-    userModel.find(user, (err, res) => {
+    userModel.find({email: user.email}, (err, res) => {
       if (err) return handleError(err);
 
-      res.length > 0 ? allow(serverResponse, user.email) : deny(serverResponse);
+      res.length < 1 ? allow(serverResponse, user) : checkPass(serverResponse, user);
     });
   };
 
-  function allow(serverResponse, email){
-    //serverResponse.status(200).send("Login correct");
-    structureList.load(email, (res) => {
-        serverResponse.status(200).send(JSON.stringify(res)); //send current models
-    });
-    return true;
+  function allow(serverResponse, user){
+    if(!validateEmail(user.email)){
+      denyEmail(serverResponse);
+    }else{
+      saveUser.insertNewUser(user);
+      structureList.load(user.email, (res) => {
+        serverResponse.status(200).send(JSON.stringify(res)); //send user's models
+      });
+    }
   }
 
-  function deny(serverResponse){
-    serverResponse.status(401).send("Password incorrect");
-    return false;
+  function checkPass(serverResponse, user) {
+    userModel.find(user, (err, res) => {
+      if (err) return handleError(err);
+
+      res.length > 0 ? allow(serverResponse, user) : denyPass(serverResponse);
+    });
+  }
+
+  function denyPass(serverResponse){
+    serverResponse.status(401).send(messages.errorPassword);
+  }
+
+  function denyEmail(serverResponse){
+    serverResponse.status(400).send(messages.errorEmail);
+  }
+
+  function validateEmail(email){
+    var valid = false;
+    var regExp = /^([a-z]|[A-Z]|\.)*@([a-z]|[A-Z])*((.com)|(.org)|(.cat)|(.es))$/;
+    
+    if(regExp.test(email)){
+        valid = true;
+    }
+    
+    return valid;
   }
