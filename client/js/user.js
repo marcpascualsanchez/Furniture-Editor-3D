@@ -192,7 +192,7 @@ var USER = {
         var mm = String(today.getMonth() + 1).padStart(2, '0'); //January = 0
         var yyyy = today.getFullYear();
     
-        today = hh + ":" + mi + "<i class='far fa-clock'> " + dd + '/' + mm + '/' + yyyy;
+        today = hh + ":" + mi + " " + dd + '/' + mm + '/' + yyyy;
 
         return today;
     }
