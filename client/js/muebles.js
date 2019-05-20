@@ -692,7 +692,7 @@ var MUEBLE = {
     forAnimation
   ) {
     var doorWidth = columnsPositionX[1] - columnsPositionX[0] - thick;
-    var doorHeight = shelvesPositionY[1] - shelvesPositionY[0] - thick / 2;
+    var doorHeight = shelvesPositionY[1] - shelvesPositionY[0] - thick;
     var doors = [];
     var doorsGroup = new THREE.Group();
     if (forAnimation) {
