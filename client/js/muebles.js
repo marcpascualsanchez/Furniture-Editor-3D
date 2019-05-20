@@ -101,10 +101,11 @@ var MUEBLE = {
     computedVariables.baseDepth = this.getHigherValue(variables.rowDepths);
 
     this.generateShelvesAndSilouettes(variables, computedVariables, closet, silouettes);
+    
     closet.add(
       this.generateLegs(
         variables.height,
-        variables.baseDepth,
+        computedVariables.baseDepth,
         variables.thick,
         variables.legsLength,
         computedVariables.colsPositionX,
@@ -658,7 +659,7 @@ var MUEBLE = {
       legsRadium,
       legsRadium,
       legsLength,
-      16 //qtat de poliedres que formen la figura (millor sensacio desfera)
+      16 //qtat de poliedres que formen la figura (millor sensació d'esfera)
     );
     var legsMaterial = new THREE.MeshLambertMaterial({ color: legsColor });
 
@@ -679,6 +680,7 @@ var MUEBLE = {
       }
     }
 
+    console.log(legsGroup);
     return legsGroup;
   },
 
