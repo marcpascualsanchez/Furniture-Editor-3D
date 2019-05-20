@@ -680,7 +680,6 @@ var MUEBLE = {
       }
     }
 
-    console.log(legsGroup);
     return legsGroup;
   },
 
