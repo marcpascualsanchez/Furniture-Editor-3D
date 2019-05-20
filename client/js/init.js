@@ -549,6 +549,7 @@ $(function() {
     for (var i = 0; i < allClickedIndex.length; i++) {
       newRowDepths[allClickedIndex[i][0]] = parseFloat(this.value);
     }
+    console.log(newRowDepths);
     var mueble_old = MUEBLE.get_old();
     MUEBLE.init({
       //iniciamos con los parametros de antes de cambiar nada
@@ -565,7 +566,7 @@ $(function() {
         mueble_old.structureOrganization,
         mueble_old.rowHeights
       ),
-      rowHeights: mueble_old.rowDepths, //anadimos solo el parametro nuevo que da el cliente
+      rowHeights: mueble_old.rowHeights, //anadimos solo el parametro nuevo que da el cliente
       colWidths: mueble_old.colWidths,
       legsLength: mueble_old.legsLength,
       rowDepths: newRowDepths,
