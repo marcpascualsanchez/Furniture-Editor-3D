@@ -1330,6 +1330,43 @@ $(function() {
         .getElementById("selection-allCol")
         .classList.remove("custom-button-disabled");
     }
+    //deshabilitar la profundidad mayor si en una fila superior
+    if(allClickedIndex.length == 1 && columnsAndRows){
+        let rowDepths = MUEBLE.variables.rowDepths;
+        let superiorRowDepth = rowDepths[allClickedIndex[0][0] + 1];
+        let inferiorRowDepth = rowDepths[allClickedIndex[0][0] - 1];
+        console.log("activated NOW");
+
+        if(superiorRowDepth != undefined){
+          for (let i = 0; i < rowDepths.length; i++) {
+            if(rowDepths[i] < superiorRowDepth){
+              document
+              .getElementById("row-depth" + rowDepths[i] * 100)
+              .classList.add("custom-button-disabled");
+            }
+          }
+        }
+
+        if(inferiorRowDepth != undefined){
+          for (let i = 0; i < rowDepths.length; i++) {
+            if(rowDepths[i] > inferiorRowDepth){
+              document
+              .getElementById("row-depth" + rowDepths[i] * 100)
+              .classList.add("custom-button-disabled");
+            }
+          }
+        }
+    }else{
+      disableDepthButtons();
+    }
+  }
+
+  function disableDepthButtons(){
+    let depthButtons = document.querySelectorAll("#row-depths > .custom-buttons > *");
+    
+    for (let i = 0; i < depthButtons.length; i++) {
+      depthButtons[i].classList.add("custom-button-disabled");
+    }
   }
 
   function calculateHeightUntilRow(maxRow, legsHeight, thick) {
