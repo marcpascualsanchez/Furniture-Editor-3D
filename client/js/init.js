@@ -294,7 +294,7 @@ $(function() {
     depth: 0.32, // Profundidad del mueble (cm)
     thick: 0.018, //grosor de las laminas que forman el mueble (cm)
     marginWall: 0.05, //margen entre mueble y pared (M)
-    color: 0x231919, //0xeceef4, //blanco plantilla
+    color: 0x3a302c, //0xeceef4 //marron-negro plantilla
     objectTexture: TEXTURE_LOADER.get(),
     structureOrganization: validateStructure(
       inpStructureOrganization,
@@ -773,6 +773,12 @@ $(function() {
     //cambiar profundidad del mueble
     var new_depth = this.value / 100;
     var mueble_old = MUEBLE.get_old();
+    var new_rowDepths = [];
+
+    for (let i = 0; i < mueble_old.rowDepths.length; i++) {
+      new_rowDepths.push(new_depth);
+    }
+
     MUEBLE.init({
       create: true,
       width: mueble_old.width,
@@ -789,7 +795,7 @@ $(function() {
       ),
       rowHeights: mueble_old.rowHeights,
       colWidths: mueble_old.colWidths,
-      rowDepths: mueble_old.rowDepths,
+      rowDepths: new_rowDepths,
       legsLength: mueble_old.legsLength,
       minRowHeight: mueble_old.minRowHeight,
       maxRowHeight: mueble_old.maxRowHeight,
@@ -1331,11 +1337,11 @@ $(function() {
         .classList.remove("custom-button-disabled");
     }
     //deshabilitar la profundidad mayor si en una fila superior
-    if(allClickedIndex.length == 1 && columnsAndRows){
-        let rowDepths = MUEBLE.variables.rowDepths;
-        let superiorRowDepth = rowDepths[allClickedIndex[0][0] + 1];
-        let inferiorRowDepth = rowDepths[allClickedIndex[0][0] - 1];
-        console.log("activated NOW");
+    if(allClickedIndex.length == 1){
+        let rowDepths = limitations.rowDepthsLimits;
+        let currentRowDepths = MUEBLE.variables.rowDepths;
+        let superiorRowDepth = currentRowDepths[allClickedIndex[0][0] + 1];
+        let inferiorRowDepth = currentRowDepths[allClickedIndex[0][0] - 1];
 
         if(superiorRowDepth != undefined){
           for (let i = 0; i < rowDepths.length; i++) {
@@ -1344,6 +1350,7 @@ $(function() {
               .getElementById("row-depth" + rowDepths[i] * 100)
               .classList.add("custom-button-disabled");
             }
+            console.log(rowDepths[i], superiorRowDepth);
           }
         }
 
@@ -1356,7 +1363,7 @@ $(function() {
             }
           }
         }
-    }else{
+    }else if(allClickedIndex.length > 1){
       disableDepthButtons();
     }
   }
@@ -1467,28 +1474,29 @@ $(function() {
     var newSelectedRadio;
     var id;
     var difference = false;
-    var lastOptions = [null, null];
+    var lastOptions = [null, null, null];
     var i = 0;
     var limitedParameters = ["height", "depth"];
+    var rowsData = [MUEBLE.variables.rowHeights, MUEBLE.variables.rowDepths]
 
     cleanClassFromElement("custom-check-button", "custom-button-checked"); //quitar checked de todos antes de nada
 
     while (!difference && i < APP.auxs.allClickedIndex.length) {
-      //alturas de filas y profundidades
-      for (let e = 0; e < limitedParameters.length; e++) {
-        id = parseInt(rowHeights[APP.auxs.allClickedIndex[i][0]] * 100);
+      //alturas de filas
+      for(let e = 0; e < rowsData.length; e++){
+        id = parseInt(rowsData[e][APP.auxs.allClickedIndex[i][0]] * 100);
         newSelectedLabel = document.getElementById(
           "row-" + limitedParameters[e] + id
         );
         newSelectedRadio = document.getElementById(limitedParameters[e] + id);
         newSelectedLabel.classList.add("custom-button-checked");
         newSelectedRadio.checked = true;
-        if (lastOptions[1] != null && id != lastOptions[1]) {
+        if (lastOptions[e] != null && id != lastOptions[e]) {
           difference = true;
           cleanClassFromElement("custom-check-button", "custom-button-checked");
         }
+      lastOptions[e] = id;
       }
-      lastOptions[1] = id;
 
       //cobertura de la division
       id = APP.settings.scene.getObjectByName("silouettes group").children[
@@ -1498,11 +1506,11 @@ $(function() {
       newSelectedRadio = document.getElementById("cover" + id);
       newSelectedLabel.classList.add("custom-button-checked");
       newSelectedRadio.checked = true;
-      if (lastOptions[0] != null && id != lastOptions[0]) {
+      if (lastOptions[2] != null && id != lastOptions[2]) {
         difference = true;
         cleanClassFromElement("custom-check-button", "custom-button-checked"); //si hay diferencias, no se pone nada
       }
-      lastOptions[0] = id;
+      lastOptions[2] = id;
 
       i++;
     }

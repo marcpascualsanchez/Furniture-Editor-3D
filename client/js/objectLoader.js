@@ -39,6 +39,7 @@ var OBJECT_LOADER = {
         // called when resource is loaded
         function(object) {
           var dimensionsBox;
+
           object.scale.set(0.09, 0.09, 0.09);
           dimensionsBox = new THREE.Box3().setFromObject(object);
           object.geometrySize = dimensionsBox.getSize(); // Returns Vector3

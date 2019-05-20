@@ -386,6 +386,7 @@ var MUEBLE = {
 
     halfBackWall.position.x = (width / 2 - fixedWidth / 2) * leftOrRight;
     halfBackWall.position.z = -depth / 2;
+    halfBackWall.castShadow = true;
 
     return halfBackWall;
   },
@@ -409,8 +410,8 @@ var MUEBLE = {
     for (var e = 0; e < specs.position.y.length + 1; e++) {
       //le sumamos uno por el techo
       shelves[e] = new THREE.Mesh(geometry, materialShelf);
-      shelves[e].name = "individual horizontal shelf " + e;
       shelves[e].castShadow = true;
+      shelves[e].name = "individual horizontal shelf " + e;
       shelves[e].position.y = specs.position.y[e];
       shelfGroup.add(shelves[e]);
     }
