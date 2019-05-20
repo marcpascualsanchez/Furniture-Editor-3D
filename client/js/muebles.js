@@ -719,7 +719,7 @@ var MUEBLE = {
         if (!forAnimation) {
           doors[e].position.z = -depth / 2;
         }
-        doors[e].position.y = shelvesPositionY[i] + doorHeight / 2;
+        doors[e].position.y = shelvesPositionY[i] + doorHeight / 2 + thick/2;
         doorsGroup.add(doors[e]);
       }
     }
@@ -935,7 +935,7 @@ var MUEBLE = {
     shelvesPositionY
   ) {
     var doorWidth = (columnsPositionX[1] - columnsPositionX[0] - thick / 2) / 2;
-    var doorHeight = shelvesPositionY[1] - shelvesPositionY[0] - thick / 2;
+    var doorHeight = shelvesPositionY[1] - shelvesPositionY[0] - thick;
     var doubleDoors = [];
     var doubleDoorsGroup = new THREE.Group();
     doubleDoorsGroup.name = "double door group";
@@ -962,7 +962,7 @@ var MUEBLE = {
           }
           doubleDoors[e].scale.x = z;
           doubleDoors[e].position.z = depth / 2;
-          doubleDoors[e].position.y = shelvesPositionY[i] + doorHeight / 2;
+          doubleDoors[e].position.y = shelvesPositionY[i] + doorHeight / 2 + thick/2;
           doubleDoorsGroup.add(doubleDoors[e]);
         }
       }
