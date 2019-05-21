@@ -9,6 +9,7 @@ manager.onLoad = function() {
     .classList.add("loading-overlay-hidden");
   document.getElementById("app").classList.add("show-app");
   APP.onResize();
+  UI.recolocateUI();
 };
 //initial structure organization of the closet
 var inpStructureOrganization =  
@@ -1034,6 +1035,7 @@ $(function() {
   $("body").on("mouseup", function() {
     CAMERA.recolocate(800);
     APP.auxs.isMouseUp = true;
+    UI.recolocateUI();
   });
 
   $("body").on("mousedown", function() {
