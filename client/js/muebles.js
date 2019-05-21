@@ -56,6 +56,8 @@ var MUEBLE = {
 
   set: function() {
     this.settings.mueble_old = this.variables;
+    //this.variables.rowDepths = [0.48,0.48,0.48];
+    console.log(this.variables.rowDepths);
     this.settings.mueble = this.createCloset(this.variables);
   },
 
@@ -81,6 +83,7 @@ var MUEBLE = {
       variables.rowHeights,
       "height"
     );
+    console.log(computedVariables.numberRows);
     computedVariables.totalWidth = this.calculateLengthGridAxe(
       computedVariables.numberColumns,
       variables.colWidths,
@@ -131,8 +134,8 @@ var MUEBLE = {
 
   generateShelvesAndSilouettes(initialVariables, computedVariables, closet, silouettes){    
 		var closetDivision = [];
-    	var closetDivisionSilouette = [];
-
+    var closetDivisionSilouette = [];
+      
 	    for (var z = 0; z < computedVariables.numberRows; z++) {
 	      for (var i = 0; i < computedVariables.numberColumns; i++) {
 	        //define si hace esquina la division actual
@@ -175,7 +178,7 @@ var MUEBLE = {
 	        silouettes.add(closetDivisionSilouette[i]);
 	      }
 	    }
-	    closet.add(silouettes);
+      closet.add(silouettes);
   },
 
   defineCorner(i, numberColumns){
@@ -365,6 +368,7 @@ var MUEBLE = {
     var halfBackWall;
     var fixedWidth = 0.15;
     var leftOrRight = 0;
+
     if (corner == "Left") {
       leftOrRight = -1;
     } else if (corner == "Right") {
@@ -547,10 +551,12 @@ var MUEBLE = {
     if (create) {
       arrayDimensions[arrayDimensions.length - 1] = maxDimension; //aseguramos que la ultima esta al max
       arrayDimensions.push(minDimension);
-      rowDepths.push(rowDepths[rowDepths.length - 1]);
+      this.variables.rowDepths.push(rowDepths[rowDepths.length - 1]);
     } else {
       arrayDimensions.pop();
-      rowDepths.pop();
+      if(rowDepths.length > rowHeights.length){
+        this.variables.rowDepths.pop();
+      }
     }
   },
 

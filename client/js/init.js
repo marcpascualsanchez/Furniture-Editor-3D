@@ -549,7 +549,7 @@ $(function() {
     for (var i = 0; i < allClickedIndex.length; i++) {
       newRowDepths[allClickedIndex[i][0]] = parseFloat(this.value);
     }
-    console.log(newRowDepths);
+
     var mueble_old = MUEBLE.get_old();
     MUEBLE.init({
       //iniciamos con los parametros de antes de cambiar nada
@@ -587,8 +587,8 @@ $(function() {
       var range_width = mueble_old.width;
 
       while (
-        range_width / mueble_old.maxColWidth <
-        new_width / mueble_old.maxColWidth
+        range_width <
+        new_width
       ) {
         MUEBLE.init({
           //iniciamos con los parametros de antes de cambiar nada
@@ -662,8 +662,8 @@ $(function() {
       var range_height = mueble_old.height;
 
       while (
-        range_height / mueble_old.maxRowHeight <
-        new_height / mueble_old.maxRowHeight
+        range_height <
+        new_height
       ) {
         MUEBLE.init({
           create: true,
@@ -1350,7 +1350,6 @@ $(function() {
               .getElementById("row-depth" + rowDepths[i] * 100)
               .classList.add("custom-button-disabled");
             }
-            console.log(rowDepths[i], superiorRowDepth);
           }
         }
 
