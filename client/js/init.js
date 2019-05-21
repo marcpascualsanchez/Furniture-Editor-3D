@@ -13,9 +13,9 @@ manager.onLoad = function() {
 //initial structure organization of the closet
 var inpStructureOrganization =  
   [  
-     ["None","Drawers" ,"None","Drawers","None","Drawers","None","Drawers","None","Drawers","None"],
-     ["None","Drawers" ,"None","Drawers","None","Drawers","None","Drawers","None","Drawers","None"],
-     ["Doors","None","Doors","None","Doors","None","Doors","None","Doors","None","Doors"],
+     ["Drawers","Drawers" ,"Drawers","Drawers","Drawers","Drawers","Drawers","Drawers","Drawers","Drawers","Drawers"],
+     ["Drawers","Drawers" ,"Drawers","Drawers","Drawers","Drawers","Drawers","Drawers","Drawers","Drawers","Drawers"],
+     ["Doors","Doors","Doors","Doors","Doors","Doors","Doors","Doors","Doors","Doors","Doors"],
      ["None","Drawers" ,"None","Drawers","None","Drawers","None","Drawers","None","Drawers","None"],
      ["None","Door","None","Doors","None","Doors","None","Doors","None","Doors","None"],
      ["Doors","None","Doors","None","Doors","None","Doors","None","Doors","None","Doors"],
@@ -31,7 +31,7 @@ var inpStructureOrganization =
   ];
 //final closet structure organization
 var rowHeights = [0.26, 0.19, 0.38];
-var colWidths = [0.28, 0.28, 0.42, 0.42];
+var colWidths = [0.26, 0.52, 0.52, 0.26];
 var rowDepths = [0.48, 0.4, 0.32];
 //JSON con estructura + rowHeights & colWidths
 const limitations = {
@@ -289,7 +289,7 @@ $(function() {
   // Inicializar el mueble
   MUEBLE.init({
     create: true, // Crear el mueble
-    width: 1.4, // Anchura del mueble introducida por cliente (cm)
+    width: 1.6, // Anchura del mueble introducida por cliente (cm)
     height: 0.78, // Altura del mueble introducida por cliente (cm)
     depth: 0.32, // Profundidad del mueble (cm)
     thick: 0.018, //grosor de las laminas que forman el mueble (cm)

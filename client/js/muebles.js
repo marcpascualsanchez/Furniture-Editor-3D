@@ -56,8 +56,6 @@ var MUEBLE = {
 
   set: function() {
     this.settings.mueble_old = this.variables;
-    //this.variables.rowDepths = [0.48,0.48,0.48];
-    console.log(this.variables.rowDepths);
     this.settings.mueble = this.createCloset(this.variables);
   },
 
@@ -83,7 +81,6 @@ var MUEBLE = {
       variables.rowHeights,
       "height"
     );
-    console.log(computedVariables.numberRows);
     computedVariables.totalWidth = this.calculateLengthGridAxe(
       computedVariables.numberColumns,
       variables.colWidths,
