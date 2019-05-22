@@ -1,7 +1,8 @@
 var MUEBLE = {
   init: function(variables) {
     this.settings = {
-      mueble: null
+      mueble: null,
+      mueble_old: null
     };
 
     this.constants = {

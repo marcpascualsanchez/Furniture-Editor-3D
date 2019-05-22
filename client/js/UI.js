@@ -112,6 +112,13 @@ $(document).on("change", '[name="depth"]', function(e) {
   labelNewSelected.addClass("main-custom-button-checked");
 });
 
+$(document).on("change", '[name="model"]', function(e) {
+  var newSelected = $(this).attr("id");
+  var labelNewSelected = $("#label-" + newSelected);
+  $("#furniture-model label").removeClass("main-custom-button-checked");
+  labelNewSelected.addClass("main-custom-button-checked");
+});
+
 $(".fa-info").hover(function(e) {
   var newSelected = $(this).attr("id");
   var messageId = "message-" + newSelected;

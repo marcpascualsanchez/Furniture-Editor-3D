@@ -325,7 +325,7 @@
                     type="range"
                     name="width"
                     max="260"
-                    min="27"
+                    min="26"
                     value="160"
                   />
                 </form>
@@ -402,6 +402,64 @@
                   </div>
                 </form>
 
+                <form id="furniture-model">
+                    <div class="custom-header">
+                      <h3 class="custom-buttons-title">
+                        Accesorios<span id="current-model"></span>
+                      </h3>
+                    </div>
+                    <input
+                      class="custom-input"
+                      type="radio"
+                      id="model-none"
+                      name="model"
+                      data-path="none"
+                      value="none"
+                      style="margin-right:auto;"
+                    />
+                    <input
+                      class="custom-input"
+                      type="radio"
+                      id="model-tv"
+                      name="model"
+                      data-path="Samsung LED TV"
+                      value="tv"
+                      style="margin-right:auto;"
+                    />
+                    <input
+                      class="custom-input"
+                      type="radio"
+                      id="model-pot"
+                      name="model"
+                      data-path="Vase01"
+                      value="pot"
+                      style="margin-right:auto;"
+                    />
+                    <div class="custom-buttons">
+                        <label
+                        name="model"
+                        for="model-none"
+                        id="label-model-none"
+                        class="custom-button main-custom-button-checked"
+                        ><span>Vacío</span></label
+                      >
+                      <label
+                        name="model"
+                        for="model-tv"
+                        id="label-model-tv"
+                        class="custom-button"
+                        ><span>TV</span></label
+                      >
+                      <label
+                        name="model"
+                        for="model-pot"
+                        id="label-model-pot"
+                        class="custom-button"
+                        ><span>Jarrón</span></label
+                      >
+                    </div>
+                  </form>
+
                 <form id="furniture-colors">
                   <input
                     name="furniture-color"
@@ -472,6 +530,7 @@
                     ></label>
                   </div>
                 </form>
+
               </div>
               <!--
                       <fieldset>

@@ -1,16 +1,5 @@
 "use strict";
 /*START VARIABLES GLOBALES DEV */
-const manager = new THREE.LoadingManager();
-manager.onStart = () => {};
-
-manager.onLoad = function() {
-  document
-    .getElementById("loading-overlay")
-    .classList.add("loading-overlay-hidden");
-  document.getElementById("app").classList.add("show-app");
-  APP.onResize();
-  UI.recolocateUI();
-};
 //initial structure organization of the closet
 var inpStructureOrganization =  
   [  
@@ -41,7 +30,8 @@ const limitations = {
   legsHeight: 0.01,
   rowHeightsLimits: [0.19, 0.26, 0.38],
   rowDepthsLimits: [0.32, 0.4, 0.48],
-  thick: 0.018
+  thick: 0.018,
+  tvMinWidth: 52
 };
 /*END GLOBALES DEV */
 
@@ -92,7 +82,9 @@ var APP = {
       hidePresettings: false,
       allRowColSwitch: false,
       firstClickedIndex: null,
-      isMouseUp: false
+      isMouseUp: false,
+      currentModel: null,
+      tvControl: false
     };
 
     // Construir el entorno
@@ -284,8 +276,8 @@ $(function() {
   //Inicializar objeto a partir de modelo
   OBJECT_LOADER.init({
     create: true,
-    texturePath: "models/OBJ/Samsung LED TV.mtl",
-    objectPath: "models/OBJ/Samsung LED TV.obj"
+    texturePath: "models/pot/Vase01.mtl",
+    objectPath: "models/pot/Vase01.obj"
   });
   // Inicializar el mueble
   MUEBLE.init({
@@ -582,7 +574,7 @@ $(function() {
 
   $("#furniture-width").on("change", function(e) {
     //generar mueble segun anchura
-    if (!APP.auxs.isMouseUp) {
+    if (!APP.auxs.isMouseUp || APP.auxs.tvControl) {
       var new_width = this.value / 100;
       var mueble_old = MUEBLE.get_old();
       var range_width = mueble_old.width;
@@ -646,6 +638,8 @@ $(function() {
       });
       remakeCloset(false);
       range_width += 0.2;
+      console.log("general " + new_width);
+      APP.auxs.tvControl = false;
     }
   });
 
@@ -804,6 +798,48 @@ $(function() {
       maxColWidth: mueble_old.maxColWidth
     });
     remakeCloset(false);
+  });
+
+  $(document).on("change", '[name="model"]', function(e) {
+    //cambiar modelo 3d externo
+    const path = "models/" + this.value + "/" + $(this).attr("data-path");
+    const previousModel = APP.settings.scene.getObjectByName("loadedObject_" + APP.auxs.currentModel);
+    const currentModel = APP.settings.scene.getObjectByName("loadedObject_" + this.value);
+
+    if(previousModel != undefined){
+      previousModel.visible = false;
+    }
+
+    if(this.value != "none"){
+      if(currentModel === undefined){
+        OBJECT_LOADER.variables.texturePath = path + ".mtl";
+        OBJECT_LOADER.variables.objectPath = path + ".obj";
+        OBJECT_LOADER.loadModel(this.id);
+        APP.auxs.currentModel = this.value;
+
+      }else{
+        currentModel.visible = true;
+      }
+
+      APP.auxs.currentModel = this.value;
+    }
+
+    if(this.value == "tv"){//controlamos si la tv va a tener el min de anchura
+      let inpElement = $("#furniture-width");
+
+      if(inpElement.val() < limitations.tvMinWidth){
+        MUEBLE.settings.mueble_old.colWidths = [0.26,0.26]
+        inpElement.val(limitations.tvMinWidth);
+        console.log("tv" + inpElement.val());
+        APP.auxs.tvControl = true;
+        $("#furniture-width").trigger("change");
+      }
+      inpElement.attr("min", limitations.tvMinWidth);
+    }else{
+      $("#furniture-width").attr("min", 26);//back to normal
+    }
+
+    recolocateLoadedObject();
   });
 
   $(document).on("mouseout", '[name="depth"]', function(e) {
@@ -1438,8 +1474,8 @@ $(function() {
   function recolocateLoadedObject() {
     var loadedObject;
 
-    if (APP.settings.scene.getObjectByName("loadedObject") != undefined) {
-      loadedObject = APP.settings.scene.getObjectByName("loadedObject");
+    if (APP.settings.scene.getObjectByName("loadedObject_" + APP.auxs.currentModel) != undefined) {
+      loadedObject = APP.settings.scene.getObjectByName("loadedObject_" + APP.auxs.currentModel);
 
       loadedObject.position.y =
         APP.settings.floor.position.y + APP.settings.mueble.totalHeight;
@@ -1531,11 +1567,5 @@ $(function() {
 
   $("input[type=range]").on("input", function() {
     $(this).trigger("change"); //cada cambio en input range actualiza los eventos de inputs de jquery
-  });
-
-  $("#save-button").on("click", function() {
-    //createJSON()
-    //sendJSON()
-    //downloadJSON()
   });
 });
