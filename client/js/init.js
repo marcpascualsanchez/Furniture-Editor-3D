@@ -638,7 +638,6 @@ $(function() {
       });
       remakeCloset(false);
       range_width += 0.2;
-      console.log("general " + new_width);
       APP.auxs.tvControl = false;
     }
   });
@@ -830,7 +829,6 @@ $(function() {
       if(inpElement.val() < limitations.tvMinWidth){
         MUEBLE.settings.mueble_old.colWidths = [0.26,0.26]
         inpElement.val(limitations.tvMinWidth);
-        console.log("tv" + inpElement.val());
         APP.auxs.tvControl = true;
         $("#furniture-width").trigger("change");
       }

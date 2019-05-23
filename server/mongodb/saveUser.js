@@ -1,5 +1,7 @@
 const connection = require('./connection.js');
 const userModels = require('./models/user');
+const bcrypt = require("bcrypt");
+const saltRounds = 10;
 var userModel = userModels.userModel;
 
 const messages = {
@@ -16,11 +18,18 @@ const messages = {
   };
 
   function insert(user){
-    var newUser = new userModel(user); //casting it to a 'mongoose doc'
-    newUser.save(function (err) {
+    bcrypt.hash(user.password, saltRounds, function(err, hash) {
       if (err) return handleError(err);
+
+      var newUser = new userModel({
+        email: user.email,
+        password: hash
+      }); //casting it to a 'mongoose doc'
+      newUser.save(function (err) {
+        if (err) return handleError(err);
+      });
+      console.log(messages.created);
     });
-    console.log(messages.created);
   }
 
   function update(user){

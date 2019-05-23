@@ -2,6 +2,9 @@ const mongoose = require('mongoose');
 const connection = require('./connection.js');
 const userModels = require('./models/user');
 const structureList = require('./controllers/listStructure');
+const bcrypt = require("bcrypt");
+const saltRounds = 10;
+
 var userModel = userModels.userModel;
 const messages = {
   errorPassword: "User password incorrect",
@@ -29,10 +32,13 @@ var saveUser = require("./saveUser.js");
   }
 
   function checkPass(serverResponse, user) {
-    userModel.find(user, (err, res) => {
+    userModel.findOne({email: user.email}, 
+      (err, res) => {
       if (err) return handleError(err);
-
-      res.length > 0 ? allow(serverResponse, user) : denyPass(serverResponse);
+      bcrypt.compare(user.password, res.password, function(err, res) {
+        //if (err) return handleError(err);
+        res? allow(serverResponse, user) : denyPass(serverResponse);
+      });
     });
   }
 
