@@ -537,13 +537,13 @@ $(function() {
 
   $("#row-depths input").on("change", function() {
     //cambiar la altura de las filas
-    var newRowDepths = rowDepths;
+    var mueble_old = MUEBLE.get_old();
+    var newRowDepths = mueble_old.rowDepths;
     var allClickedIndex = APP.auxs.allClickedIndex;
     for (var i = 0; i < allClickedIndex.length; i++) {
       newRowDepths[allClickedIndex[i][0]] = parseFloat(this.value);
     }
-
-    var mueble_old = MUEBLE.get_old();
+    
     MUEBLE.init({
       //iniciamos con los parametros de antes de cambiar nada
       create: true,
@@ -568,6 +568,8 @@ $(function() {
       minColWidth: mueble_old.minColWidth,
       maxColWidth: mueble_old.maxColWidth
     });
+
+    console.log(newRowDepths);
 
     remakeCloset(false);
   });
@@ -796,6 +798,7 @@ $(function() {
       minColWidth: mueble_old.minColWidth,
       maxColWidth: mueble_old.maxColWidth
     });
+    mueble_old.rowDepths = new_rowDepths;
     remakeCloset(false);
   });
 
