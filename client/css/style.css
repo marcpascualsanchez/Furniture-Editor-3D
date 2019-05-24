@@ -384,13 +384,16 @@ i.pass-error, i.email-error{
 }
 #forgot-link{
   font-size: 12px;
+  cursor: pointer;
 }
 #forgot-link:hover{
   color:#6ba7ba;
 }
 .correct-email{
   color: #5f8da6;
+  font-weight: bold;
 }
 .error-email{
   color: tomato;
+  font-weight: bold;
 }

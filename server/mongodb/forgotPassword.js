@@ -4,7 +4,7 @@ const userModels = require('./models/user');
 
 var userModel = userModels.userModel;
 const messages = {
-  errorEmail: "Email not found",
+  errorEmail: "Email no encontrado",
   valid: "Haga el login con una contraseña nueva"
 }
 var user = require("./saveUser.js");
