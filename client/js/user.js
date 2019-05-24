@@ -3,10 +3,14 @@ var USER = {
         let userButton = document.querySelector("#session-button");
         let userCloseButton = document.querySelector("#session-close-button");
         let userExitButton = document.querySelector("#session-exit-button");
+        let userForgot = document.querySelector("#forgot-link");
+        let userBack = document.querySelector("#back-button");
         
         userButton.addEventListener("click", USER.showUserUI);
         userCloseButton.addEventListener("click", USER.hideUserUI);
         userExitButton.addEventListener("click", USER.logout);
+        userForgot.addEventListener("click", USER.showForgot);
+        userBack.addEventListener("click", USER.backToLogin);
     },
     variables: {
         created: null,
@@ -152,6 +156,17 @@ var USER = {
         document.querySelector("#login").setAttribute("style", "display: block;");
         document.querySelector("#saveAndLoad").setAttribute("style", "display: none;");
         document.querySelector("#session-button").text = "Login";
+    },
+    showForgot: () =>{
+        let output = document.querySelector("#output-text");
+        
+        output.textContent = "";
+        document.querySelector("#login").setAttribute("style", "display: none;");
+        document.querySelector("#forgot").setAttribute("style", "display: block;");
+    },
+    backToLogin: () =>{
+        document.querySelector("#login").setAttribute("style", "display: block;");
+        document.querySelector("#forgot").setAttribute("style", "display: none;");
     },
     setEmail: (email) => {
         USER.variables.email = email;

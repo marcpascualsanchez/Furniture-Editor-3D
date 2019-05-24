@@ -382,3 +382,15 @@ i.pass-error, i.email-error{
 .error-icon{
   position: absolute;
 }
+#forgot-link{
+  font-size: 12px;
+}
+#forgot-link:hover{
+  color:#6ba7ba;
+}
+.correct-email{
+  color: #5f8da6;
+}
+.error-email{
+  color: tomato;
+}

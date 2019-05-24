@@ -99,6 +99,7 @@ var OBJECT_LOADER = {
         APP.settings.mueble.topDepth / 2 +
         object.geometrySize.y / 2; //deberia ser geometrySize.z pero el modelo esta interpretado como si el eje Y fuese el Z
       object.position.x = APP.settings.mueble.position.x;
+      
       APP.settings.scene.add(object);
       this.currentObject = object;
     },

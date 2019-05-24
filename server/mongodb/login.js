@@ -3,7 +3,6 @@ const connection = require('./connection.js');
 const userModels = require('./models/user');
 const structureList = require('./controllers/listStructure');
 const bcrypt = require("bcrypt");
-const saltRounds = 10;
 
 var userModel = userModels.userModel;
 const messages = {

@@ -28,11 +28,19 @@ const messages = {
       newUser.save(function (err) {
         if (err) return handleError(err);
       });
-      console.log(messages.created);
+      //console.log(messages.created);
     });
   }
 
+  exports.deleteUser = (userEmail) =>{
+    userModel.deleteOne(userEmail, (err, res) =>{
+      if (err) return handleError(err);
+      //console.log(res);
+    });
+  };
+
+
   function update(user){
     //if user was already in db
-    console.log(messages.alreadyIn);
+    //console.log(messages.alreadyIn);
   }

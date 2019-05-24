@@ -6,6 +6,7 @@ var app = express();
 
 var saveStructure = require("./mongodb/saveStructure.js");
 var login = require("./mongodb/login.js");
+var forgotPassword = require("./mongodb/forgotPassword.js");
 
 app.get('/', function(req, res) {
     app.use(express.static(__dirname + "/../client"));
@@ -20,6 +21,10 @@ app.post('/saveStructure', function(req, res) {
 
 app.post('/login', function(req, res) {
     login.login(req.body, res);//responses are handled by /mongodb/login.js
+});
+
+app.post('/forgotPassword', function(req, res){
+    forgotPassword.forgotPassword(req.body, res);//responses are handled by /mongodb/forgotPassword.js
 });
 
 app.listen(8080);

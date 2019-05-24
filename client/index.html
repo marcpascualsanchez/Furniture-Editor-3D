@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Muebles</title>
+    <title>Diseñador de Muebles</title>
     <link rel="stylesheet" href="css/animations.css" />
     <link rel="stylesheet" href="css/style.css" />
     <link
@@ -26,9 +26,21 @@
           <span class="password col-12">Contraseña</span>
           <div class="error-icon"><i class="pass-error"></i></div>
           <input type="password" class="password-field col-12">
+          <span id="forgot-link" class="col-12">¿Has olvidado tu contraseña?</span>
         </div>
         <div class="row">
           <input type="button" class="session-button col-4 offset-4" id="login-button" value="Login">
+        </div>
+      </div>
+      <div id="forgot" class="cover-container" style="display: none">
+        <div class="row">
+          <span class="email col-12">E-mail</span>
+          <div id="output-text" class="col-12"></div>
+          <input type="text" class="email-field col-12" id="forgot-email">
+        </div>
+        <div class="row">
+          <input type="button" class="session-button col-4 offset-1" id="back-button" value="Atrás">
+          <input type="button" class="session-button col-4 offset-2" id="forgot-button" value="Resetear">
         </div>
       </div>
       <div id="saveAndLoad" class="cover-container" style="display:none;">
@@ -161,10 +173,10 @@
               <form name="row-depths" id="row-depths">
                 <div class="custom-header">
                   <h3 class="custom-buttons-title">Profundidad</h3>
-                  <i class="fa fa-info" id="info-row-height"></i>
+                  <i class="fa fa-info" id="info-row-depth"></i>
                   <div
                     class="popup-info"
-                    id="message-info-row-height"
+                    id="message-info-row-depth"
                     style="left: 0px;"
                   >
                     Escoge la profundidad que tendrá toda la estantería.
@@ -593,6 +605,7 @@
     <!-- SCRIPTS AJAX -->
     <script src="js/ajax/saveStructure.js"></script>
     <script src="js/ajax/saveUser.js"></script>
+    <script src="js/ajax/forgotPassword.js"></script>
     <!-- SCRIPTS AJAX -->
     <!-- START APP -->
     <script src="js/init.js"></script>
