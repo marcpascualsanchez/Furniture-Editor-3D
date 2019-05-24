@@ -777,7 +777,7 @@ $(function() {
       create: true,
       width: mueble_old.width,
       height: mueble_old.height,
-      depth: new_depth,
+      depth: mueble_old.depth,
       thick: mueble_old.thick,
       marginWall: mueble_old.marginWall,
       shelf: mueble_old.shelf,
