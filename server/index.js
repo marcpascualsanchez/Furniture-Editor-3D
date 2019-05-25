@@ -1,7 +1,6 @@
 var express = require('express');
 var parser = require('body-parser');
 var path = require('path');
-var favicon = require('serve-favicon');
 var app = express();
 
 var saveStructure = require("./mongodb/saveStructure.js");
@@ -32,5 +31,3 @@ app.set('port', process.env.PORT || 3000);
 app.listen(app.get('port'), () =>{
     console.log("Server on port " + app.get('port') );
 });
-
-app.use(favicon(__dirname + '/img/favicon.ico'));
