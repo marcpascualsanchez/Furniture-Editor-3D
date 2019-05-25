@@ -27,6 +27,10 @@ app.post('/forgotPassword', function(req, res){
     forgotPassword.forgotPassword(req.body, res);//responses are handled by /mongodb/forgotPassword.js
 });
 
-app.listen(8080);
+app.set('port', process.env.PORT || 3000);
+
+app.listen(app.get('port'), () =>{
+    console.log("Server on port " + app.get('port') );
+});
 
 app.use(favicon(__dirname + '/img/favicon.ico'));
