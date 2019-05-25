@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "3D furniture editor project using HTML5+JS+CSS ()\u001b[Dclientside) and NodeJS+MongoDB (serverside)",
   "main": "index.js",
+  "engines": {
+    "node": "10.15.3"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server/index.js"
