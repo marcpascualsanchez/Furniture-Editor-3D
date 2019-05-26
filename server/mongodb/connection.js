@@ -1,12 +1,15 @@
 const mongoose = require('mongoose');
+/* local uri
 const host = "localhost";
 const port = "27017";
 const database = "furniture";
+*/
+const dbURI = "mongodb+srv://admin:admin@cluster0-gmhkc.mongodb.net/test?retryWrites=true";
 
 connect = (host, port, database) => {
   var db;
   
-  mongoose.connect("mongodb://" + host + ":" + port + "/" + database, {useNewUrlParser: true});
+  mongoose.connect(dbURI, {useNewUrlParser: true});
 
   db = mongoose.connection;
   db.on('error', console.error.bind(console, 'connection ERROR'));
