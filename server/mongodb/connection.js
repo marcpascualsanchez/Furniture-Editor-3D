@@ -1,21 +1,9 @@
-const mongoose = require('mongoose');
-/* local uri
-const host = "localhost";
-const port = "27017";
-const database = "furniture";
-*/
-const dbURI = "mongodb+srv://admin:admin@cluster0-gmhkc.mongodb.net/test?retryWrites=true";
+const MongoClient = require('mongodb').MongoClient;
+const uri = "mongodb+srv://admin:<password>@cluster0-gmhkc.mongodb.net/test?retryWrites=true";
+const client = new MongoClient(uri, { useNewUrlParser: true });
 
-connect = () => {
-  var db;
-  
-  mongoose.connect(dbURI, {useNewUrlParser: true});
-
-  db = mongoose.connection;
-  db.on('error', console.error.bind(console, 'connection ERROR'));
-  db.once('open', function() {
-    console.log("Connection OK");
-  });
-}
-
-connect();
+client.connect(err => {
+  //const collection = client.db("test").collection("devices");
+  // perform actions on the collection object
+  client.close();
+});
