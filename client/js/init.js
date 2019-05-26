@@ -569,8 +569,6 @@ $(function() {
       maxColWidth: mueble_old.maxColWidth
     });
 
-    console.log(newRowDepths);
-
     remakeCloset(false);
   });
 
