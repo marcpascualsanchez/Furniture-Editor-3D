@@ -6,7 +6,7 @@ const database = "furniture";
 */
 const dbURI = "mongodb+srv://admin:admin@cluster0-gmhkc.mongodb.net/test?retryWrites=true";
 
-connect = (host, port, database) => {
+connect = () => {
   var db;
   
   mongoose.connect(dbURI, {useNewUrlParser: true});
@@ -18,4 +18,4 @@ connect = (host, port, database) => {
   });
 }
 
-connect(host, port, database);
+connect();
