@@ -1,9 +1,4 @@
 const mongoose = require('mongoose');
-/* local uri
-const host = "localhost";
-const port = "27017";
-const database = "furniture";
-*/
 const dbURI = "mongodb+srv://admin:admin@cluster0-gmhkc.mongodb.net/test?retryWrites=true";
 
 connect = (dbURI) => {
