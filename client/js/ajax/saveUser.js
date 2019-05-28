@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
     var xhttp = new XMLHttpRequest();
     var user;
     
-    var comprovar = () => {
+    var manageUser = () => {
         user = USER.getJSON();
         
         xhttp.onreadystatechange = function(data) {
@@ -20,6 +20,6 @@ document.addEventListener("DOMContentLoaded", ()=>{
         xhttp.setRequestHeader('Content-Type', 'application/json');
         xhttp.send(JSON.stringify(user));        
     }
-    loginButton.addEventListener("click", comprovar);
-    saveButton.addEventListener("click", comprovar);
+    loginButton.addEventListener("click", manageUser);
+    saveButton.addEventListener("click", manageUser);
 });

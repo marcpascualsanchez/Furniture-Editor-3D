@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
     var xhttp = new XMLHttpRequest();
     var userEmail;
     
-    var comprovar = () => {
+    var managePassword = () => {
         userEmail = {email: document.querySelector("#forgot-email").value};
         
         xhttp.onreadystatechange = function(data) {
@@ -23,5 +23,5 @@ document.addEventListener("DOMContentLoaded", ()=>{
         xhttp.setRequestHeader('Content-Type', 'application/json');
         xhttp.send(JSON.stringify(userEmail));        
     }
-    forgotButton.addEventListener("click", comprovar);
+    forgotButton.addEventListener("click", managePassword);
 });

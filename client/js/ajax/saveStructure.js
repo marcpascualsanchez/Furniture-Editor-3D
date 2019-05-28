@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
     var xhttp = new XMLHttpRequest();
     var structure;
     
-    var comprovar = () => {
+    var manageStructure = () => {
         structure = MUEBLE.getFullStructureJSON();
         structure.designer = USER.getEmail();
         structure.date = USER.getCurrentDate();
@@ -18,5 +18,5 @@ document.addEventListener("DOMContentLoaded", ()=>{
         xhttp.setRequestHeader('Content-Type', 'application/json');
         xhttp.send(JSON.stringify(structure));
     }
-    saveButton.addEventListener("click", comprovar);
+    saveButton.addEventListener("click", manageStructure);
 });
